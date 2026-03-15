@@ -813,73 +813,146 @@ table.lit-table td:first-child { color: var(--text); font-weight: 500; }
   <div class="section-header">
     <div class="label">第四部分</div>
     <h2>研究发展脉络</h2>
-    <p>按时间线梳理该领域的关键里程碑。</p>
+    <p>该领域经历了从"财务激励为中心"到"认知与技能为中心"的范式转变。早期文献默认医生理性但自利，核心问题是支付制度设计；近年来研究重心转向医生作为有限理性的信息处理者，关注诊断技能、认知偏差与信念更新。</p>
   </div>
   <div class="timeline">
+
+    <!-- ═══ 第一阶段 ═══ -->
+    <div class="tl-item">
+      <div class="tl-year" style="color:var(--orange);">阶段一</div>
+      <div class="tl-title" style="color:var(--orange); font-size:1.05rem;">财务激励为中心的范式（~2000s）</div>
+      <div class="tl-desc">默认假设：医生是理性但自利的代理人，决策偏差主要由财务激励驱动。核心问题是如何设计支付制度来矫正医生行为。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2000</div>
+      <div class="tl-title">McGuire — <em>Handbook of Health Economics</em> 经典章节</div>
+      <div class="tl-desc">系统阐述了"供给者诱导需求"(supplier-induced demand) 框架。医生作为患者的不完美代理人，受 fee-for-service 激励可能过度治疗、受 capitation 激励可能治疗不足。此后十余年，激励设计成为该领域的主旋律。</div>
+    </div>
     <div class="tl-item">
       <div class="tl-year">2007</div>
-      <div class="tl-title">Chandra & Staiger 奠基性工作</div>
-      <div class="tl-desc">提出区域治疗强度差异与操作技能内生关系的模型。高密集治疗地区的医生在密集手术上更熟练，形成正反馈循环。</div>
+      <div class="tl-title">Chandra & Staiger — 区域实践风格与技能内生性</div>
+      <div class="tl-desc">提出重要转折点：区域治疗强度差异不仅反映激励差异，也反映操作技能的内生积累——高密集治疗地区的医生在密集手术上更熟练，形成正反馈循环。首次将"技能"纳入对医生行为地区差异的解释，但仍以操作技能（而非诊断技能）为主。</div>
     </div>
     <div class="tl-item">
       <div class="tl-year">2010</div>
-      <div class="tl-title">Almond et al. — 启发式决策的证据</div>
-      <div class="tl-desc">发现 1500 克"极低出生体重"阈值导致刚超过该阈值的婴儿被剥夺了可挽救生命的治疗，开创了用回归断点设计研究医疗启发式的方法。</div>
+      <div class="tl-title">Chandra & Staiger — 识别"供给者偏见"</div>
+      <div class="tl-desc">发现女性和少数族裔患者接受的治疗更少，但条件治疗效果也更低。指出"治疗更少不等于歧视"——但如果医生不分个体地对所有女性/少数族裔降低治疗强度，则仍是有问题的。开始将医生信念纳入分析。</div>
+    </div>
+
+    <!-- ═══ 转折期 ═══ -->
+    <div class="tl-item">
+      <div class="tl-year" style="color:var(--blue);">转折期</div>
+      <div class="tl-title" style="color:var(--blue); font-size:1.05rem;">激励改革局限性显现，新视角涌现（2010-2015）</div>
+      <div class="tl-desc">大量研究表明调整价格体系效果有限——医生会游戏规则、改变编码、转移患者。学界开始认识到：要理解医生行为差异，必须超越激励框架，直接研究决策过程本身。</div>
     </div>
     <div class="tl-item">
       <div class="tl-year">2010</div>
-      <div class="tl-title">Doyle, Ewer & Wagner — 随机分配的医生团队</div>
-      <div class="tl-desc">将住院患者随机分配给不同水平的住院医团队，发现高排名医学院毕业的"A 队"用更少资源达到相同健康结局。</div>
+      <div class="tl-title">Almond et al. — 启发式决策的首个因果证据</div>
+      <div class="tl-desc">发现 1500 克"极低出生体重"阈值导致刚超过阈值的婴儿被剥夺了可挽救生命的治疗。开创了用回归断点设计研究医生认知偏差——医生不是在理性地权衡成本收益，而是在机械地遵循简单规则。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2010</div>
+      <div class="tl-title">Doyle, Ewer & Wagner — 技能差异的随机化证据</div>
+      <div class="tl-desc">将住院患者随机分配给不同水平的住院医团队。高排名医学院"A 队"用更少资源达到相同结局——"B 队"需要更多检查来弥补技能不足。直接说明技能差异（而非仅仅激励差异）影响资源使用。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2012</div>
+      <div class="tl-title">Chandra & Skinner — 医疗技术与支出增长</div>
+      <div class="tl-desc">系统论述了大量医疗支出可能被误导或浪费。但关键发现是：仅靠调整支付不太可能引出社会最优表现——"在投入与产出关系存在噪声的职业中"，价格信号的引导力有限。</div>
     </div>
     <div class="tl-item">
       <div class="tl-year">2014</div>
-      <div class="tl-title">Clemens & Gottlieb — 财务激励的因果效应</div>
-      <div class="tl-desc">利用 Medicare 报销区域合并，发现报销率提高使选择性手术和住院率增加，但不影响死亡率。供给弹性 > 1。</div>
+      <div class="tl-title">Clemens & Gottlieb — 财务激励确实有效，但……</div>
+      <div class="tl-desc">利用 Medicare 报销区域合并，确认报销率提高使选择性手术增加（弹性 > 1），但对 4 年死亡率无影响。医生确实对价格有反应，但这种反应并未改善患者健康——仅仅增加了支出。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2015</div>
+      <div class="tl-title">Berndt et al. — "每个医生有自己偏爱的药"</div>
+      <div class="tl-desc">发现医生三分之二的抗精神病药处方集中在同一种药物，且不同医生偏好不同的药物。这种个体层面的处方"粘性"很难用财务激励解释，更像是信念和习惯的产物。</div>
+    </div>
+
+    <!-- ═══ 第二阶段 ═══ -->
+    <div class="tl-item">
+      <div class="tl-year" style="color:var(--green);">阶段二</div>
+      <div class="tl-title" style="color:var(--green); font-size:1.05rem;">认知与技能为中心的新范式（2016-2022）</div>
+      <div class="tl-desc">研究重心转向将医生视为有限理性的信息处理者。核心问题变为：医生如何处理信息、如何形成判断、诊断技能差异有多大后果。方法论上对因果识别的要求也持续提高。</div>
     </div>
     <div class="tl-item">
       <div class="tl-year">2016</div>
-      <div class="tl-title">Abaluck et al. — 检测效率的决定因素</div>
-      <div class="tl-desc">利用 Medicare 数据建立选择模型，发现医生在评估肺栓塞风险时系统性地误用患者特征权重。</div>
+      <div class="tl-title">Abaluck et al. — 医生系统性地误用信息权重</div>
+      <div class="tl-desc">利用 Medicare 数据建立选择模型，发现医生在评估肺栓塞风险时对临床症状反应强烈，但忽视已知风险因素。这不是激励问题，而是信息处理问题——医生对一些特征赋予了过高权重，对另一些特征赋予了过低权重。</div>
     </div>
     <div class="tl-item">
       <div class="tl-year">2017</div>
-      <div class="tl-title">Currie & MacLeod — 诊断与操作技能的分离</div>
-      <div class="tl-desc">首次在经验文献中将诊断技能与操作技能分离，证明两者都独立影响产科结局。用工具变量解决内生性。</div>
+      <div class="tl-title">Currie & MacLeod — 首次分离诊断技能与操作技能</div>
+      <div class="tl-desc">用新泽西出生记录数据，首次在经验文献中将诊断技能（判断谁需要剖宫产）与操作技能（执行剖宫产的水平）分离。证明两者都独立影响产科结局。关键发现：一刀切降低剖宫产率的政策会伤害高风险婴儿——因为问题不在于做太多手术，而在于做错了对象。</div>
     </div>
     <div class="tl-item">
       <div class="tl-year">2018</div>
-      <div class="tl-title">Doctor et al. — "致命信件"实验</div>
-      <div class="tl-desc">向开具致死阿片处方的医生发送患者死亡通知信，阿片处方量在三个月内下降 9.7%。最接近"纯信息"干预的经典实验。</div>
+      <div class="tl-title">Doctor et al. — 信息干预的"黄金标准"实验</div>
+      <div class="tl-desc">向开具致死阿片处方的医生发送患者死亡通知信，处方量 3 个月内下降 9.7%。关键在于：这不是调整价格，而是提供了医生原本无法获得的结局信息——医生确实会因为信息更新而改变行为。</div>
     </div>
     <div class="tl-item">
       <div class="tl-year">2018-2020</div>
-      <div class="tl-title">种族/性别一致性研究爆发</div>
-      <div class="tl-desc">Greenwood et al. 发现女性心脏病患者由男性医生治疗时存活率更低；Hill et al. 发现黑人患者由黑人医生治疗时死亡率下降 27%。</div>
+      <div class="tl-title">种族/性别一致性研究爆发 — 偏见还是沟通障碍？</div>
+      <div class="tl-desc">Greenwood et al. (2018) 发现女性心脏病患者由男性医生治疗时存活率更低；Hill et al. (2023) 发现黑人患者由黑人医生治疗时死亡率下降 27%。但 Frakes & Gruber (2022) 发现超过一半的种族一致性收益来自患者用药依从性改善——说明问题可能不全在医生偏见，也在于沟通和信任影响了诊断信号质量（γ<sub>j</sub>）。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2019-2020</div>
+      <div class="tl-title">激励改革"游戏化"问题暴露</div>
+      <div class="tl-desc">Alexander (2020) 发现新泽西降本激励计划中医生通过转移低成本患者获取奖金，对实际成本和手术使用无影响。Wilding et al. (2022) 发现英国高血压目标政策中医生通过反复测量、申请豁免、四舍五入来"达标"。激励设计的局限性进一步凸显。</div>
     </div>
     <div class="tl-item">
       <div class="tl-year">2020</div>
-      <div class="tl-title">Chandra & Staiger — 医院层面的配置效率</div>
-      <div class="tl-desc">证明部分医院过度使用非其比较优势的手术，消除这种"配置低效"可使治疗效益提高 44%。</div>
+      <div class="tl-title">Chandra & Staiger — 配置效率：不只是做多做少的问题</div>
+      <div class="tl-desc">证明部分医院过度使用非其比较优势的手术。消除这种"配置低效"可使治疗效益提高 44%。核心洞见：问题不在于总量太多或太少，而在于做对了没有——这与激励改革的"控总量"逻辑形成对比。</div>
     </div>
     <div class="tl-item">
       <div class="tl-year">2022</div>
-      <div class="tl-title">Chan, Gentzkow & Yu — 诊断技能的直接度量</div>
-      <div class="tl-desc">利用 VA 急诊中患者的随机分配，直接计算放射科医生的 TPR 和 FPR。发现诊断技能差异解释了 39% 的诊断决策变异和 78% 的结局变异。</div>
+      <div class="tl-title">Chan, Gentzkow & Yu — 诊断技能差异的直接度量</div>
+      <div class="tl-desc">利用 VA 急诊中患者随机分配，直接计算每位放射科医生的 TPR 和 FPR。核心发现：即使在阅读 X 光片这种常规任务中，诊断技能差异也解释了 39% 的诊断决策变异和 78% 的结局变异。这一结果将"诊断技能"从理论概念变为可精确度量的经验量。</div>
     </div>
     <div class="tl-item">
       <div class="tl-year">2022</div>
-      <div class="tl-title">Mullainathan & Obermeyer — 机器学习诊断误差</div>
-      <div class="tl-desc">用机器学习模型识别应接受更密集治疗的心脏病患者，发现医生过度依赖少数突出特征而忽略细微指标。</div>
+      <div class="tl-title">Mullainathan & Obermeyer — 机器学习揭示系统性认知错误</div>
+      <div class="tl-desc">用机器学习模型识别心脏病 ED 中应接受更密集治疗的患者。发现医生过度依赖少数突出特征（尤其是年龄）而忽略细微指标，导致系统性的治疗错配。这种错误模式与 Kahneman & Tversky 所描述的"可得性启发式"高度一致。</div>
+    </div>
+
+    <!-- ═══ 第三阶段 ═══ -->
+    <div class="tl-item">
+      <div class="tl-year" style="color:var(--purple);">阶段三</div>
+      <div class="tl-title" style="color:var(--purple); font-size:1.05rem;">干预探索与理论-实践鸿沟（2023-2026）</div>
+      <div class="tl-desc">理论上已清楚问题所在，但将洞见转化为实际改善面临巨大挑战。AI 辅助、指南遵从、信息提供等干预的效果远不如预期。核心问题从"理解医生为什么犯错"转向"如何有效帮助医生少犯错"。</div>
     </div>
     <div class="tl-item">
       <div class="tl-year">2023</div>
-      <div class="tl-title">Agarwal et al. — 人机协作的实验证据</div>
-      <div class="tl-desc">随机实验发现向放射科医生提供 AI 预测并未改善准确性——医生错误地将 AI 视为独立信息源。提出高置信度案例由 AI 决定、其余由人类决定的混合方案。</div>
+      <div class="tl-title">Agarwal et al. — 人机协作的困境</div>
+      <div class="tl-desc">随机实验发现向放射科医生提供 AI 预测并未改善诊断准确性——医生错误地将 AI 预测视为独立信息源，反而引入了偏差。说明"给医生一个好工具"远比想象中复杂。提出混合方案：高置信度案例由 AI 决定，其余由人类决定。</div>
     </div>
     <div class="tl-item">
-      <div class="tl-year">2024-2026</div>
-      <div class="tl-title">前沿问题涌现</div>
-      <div class="tl-desc">Cuddy & Currie (2026) 证明违反青少年心理健康治疗指南导致显著不良后果。Corredor-Waldron et al. (2026) 发现剖宫产种族差异在手术室繁忙时消失。领域聚焦于如何将理论洞见转化为改善健康的实际干预。</div>
+      <div class="tl-year">2023-2024</div>
+      <div class="tl-title">指南遵从的短暂性问题</div>
+      <div class="tl-desc">Shurtz et al. (2024) 发现医生在患者意外确诊结肠癌后改善筛查行为——但仅持续三个月。Singh (2021) 发现产科医生经历并发症后会暂时切换分娩方式——也仅持续很短时间。指南有效但遵从不持久成为核心难题。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2024</div>
+      <div class="tl-title">Alpert et al. — 处方监控：信息还是麻烦成本？</div>
+      <div class="tl-desc">发现"必须查询"处方监控程序影响所有类型患者（不只是已在服药者），暗示减少处方的主要机制不是信息提供，而是增加了处方的"麻烦成本"。对"信息干预"的乐观预期形成挑战。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2026</div>
+      <div class="tl-title">Cuddy & Currie — 违反指南的因果后果</div>
+      <div class="tl-desc">用 post-LASSO IV 方法证明违反青少年心理健康治疗指南导致更高医疗费用、更多自伤、更多 ED 就诊和住院。直接论证了"指南合规→更好结局"的因果链条。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2026</div>
+      <div class="tl-title">Corredor-Waldron, Currie & Schnell — 自主权与种族差异</div>
+      <div class="tl-desc">发现剖宫产种族差异在低风险女性中最大，在手术室繁忙时消失。说明差异化行为主要发生在医生自由裁量权最大的时候——与认知偏差/隐性偏见的解释一致，也暗示减少不必要的自由裁量空间可能是减少差异的途径。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2026</div>
+      <div class="tl-title">Currie, MacLeod & Musen — 本综述的定位</div>
+      <div class="tl-desc">本综述本身即是这一范式转变的产物：其构建的模型将财务激励（δ<sub>tj</sub>）仅作为决策的多个影响因素之一，与诊断技能（γ<sub>j</sub>）、操作技能、信念（p<sub>Lj</sub>/p<sub>Hj</sub>）并列。论文的核心结论是：价格体系调整对改善决策的效果有限，未来应聚焦于指南设计、算法辅助的实施细节，以及如何将理论洞见真正转化为临床改善。</div>
     </div>
   </div>
 </section>
