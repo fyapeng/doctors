@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>医生决策与患者结局 — 研究文献综述</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Source+Code+Pro:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+:root {
+  --bg: #0d0f14;
+  --bg-card: #151820;
+  --bg-card-hover: #1a1e2a;
+  --bg-surface: #1c2030;
+  --accent: #c9a55c;
+  --accent-light: #e4c97d;
+  --accent-dim: rgba(201,165,92,0.15);
+  --text: #e8e4dc;
+  --text-dim: #9a9590;
+  --text-muted: #6b6560;
+  --border: rgba(201,165,92,0.12);
+  --border-strong: rgba(201,165,92,0.3);
+  --red: #d4685a;
+  --green: #6ab87a;
+  --blue: #5a8ed4;
+  --purple: #9a7ad4;
+  --orange: #d4985a;
+  --teal: #5ab8b8;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 15px;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--accent); color: var(--bg); }
+
+/* ─── NAVIGATION ─── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:1000;
+  background: rgba(13,15,20,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px;
+}
+nav .logo {
+  font-family: 'Noto Serif SC', serif;
+  font-weight: 700; font-size: 1rem;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+nav .nav-links { display: flex; gap: 0.25rem; }
+nav .nav-links a {
+  color: var(--text-dim); text-decoration: none;
+  padding: 0.4rem 0.8rem; border-radius: 6px;
+  font-size: 0.82rem; font-weight: 500;
+  transition: all 0.2s;
+}
+nav .nav-links a:hover, nav .nav-links a.active {
+  color: var(--accent); background: var(--accent-dim);
+}
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top:-50%; left:-50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(ellipse at 50% 30%, rgba(201,165,92,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 20% 80%, rgba(90,142,212,0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-block;
+  font-size: 0.72rem; font-weight: 500;
+  color: var(--accent);
+  border: 1px solid var(--border-strong);
+  padding: 0.3rem 1rem; border-radius: 100px;
+  margin-bottom: 2rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  animation: fadeUp 0.8s ease both;
+}
+.hero h1 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 900;
+  line-height: 1.25;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.8s 0.15s ease both;
+}
+.hero h1 .gold { color: var(--accent); }
+.hero .subtitle {
+  font-size: 1.05rem; color: var(--text-dim);
+  max-width: 680px; line-height: 1.8;
+  animation: fadeUp 0.8s 0.3s ease both;
+}
+.hero-meta {
+  margin-top: 2.5rem;
+  display: flex; gap: 2rem; flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeUp 0.8s 0.45s ease both;
+}
+.hero-meta span {
+  font-size: 0.8rem; color: var(--text-muted);
+}
+.hero-meta span strong { color: var(--text-dim); }
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(24px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+/* ─── SECTIONS ─── */
+.section {
+  max-width: 1200px; margin: 0 auto;
+  padding: 5rem 2rem;
+}
+.section-header {
+  margin-bottom: 3rem;
+}
+.section-header .label {
+  font-size: 0.72rem; font-weight: 500;
+  color: var(--accent); letter-spacing: 0.2em;
+  text-transform: uppercase; margin-bottom: 0.5rem;
+}
+.section-header h2 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.8rem; font-weight: 700;
+  line-height: 1.35;
+}
+.section-header p {
+  color: var(--text-dim); margin-top: 0.75rem;
+  max-width: 720px; font-size: 0.95rem;
+}
+
+/* ─── MODEL SECTION ─── */
+.model-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.model-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.3s;
+}
+.model-card:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+}
+.model-card.full { grid-column: 1 / -1; }
+.model-card h3 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.1rem; font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--accent-light);
+}
+.model-card .math-block {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.2rem 1.5rem;
+  margin: 1rem 0;
+  text-align: center;
+  font-size: 1.05rem;
+  overflow-x: auto;
+}
+.model-card p { color: var(--text-dim); font-size: 0.9rem; }
+.model-card .insight {
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+  background: var(--accent-dim);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.proposition-list {
+  display: flex; flex-direction: column; gap: 1rem;
+  margin-top: 1.5rem;
+}
+.proposition {
+  display: flex; gap: 1rem; align-items: flex-start;
+}
+.proposition .num {
+  min-width: 32px; height: 32px;
+  background: var(--accent-dim);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700;
+  color: var(--accent);
+}
+.proposition .content { flex: 1; }
+.proposition .content strong { color: var(--text); }
+.proposition .content p { color: var(--text-dim); font-size: 0.88rem; margin-top: 0.25rem; }
+
+/* ─── LITERATURE TABLE ─── */
+.lit-controls {
+  display: flex; gap: 1rem; margin-bottom: 1.5rem;
+  flex-wrap: wrap; align-items: center;
+}
+.search-box {
+  flex: 1; min-width: 240px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.search-box:focus { border-color: var(--accent); }
+.search-box::placeholder { color: var(--text-muted); }
+
+.filter-group { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+.filter-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover { border-color: var(--border-strong); color: var(--text); }
+.filter-btn.active {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.lit-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-card);
+}
+table.lit-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 0.85rem;
+}
+table.lit-table thead th {
+  background: var(--bg-surface);
+  padding: 0.8rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--accent-light);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  position: sticky; top:0;
+}
+table.lit-table thead th:hover { color: var(--accent); }
+table.lit-table thead th .sort-icon { margin-left: 4px; font-size: 0.7rem; }
+table.lit-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+table.lit-table tbody tr:hover { background: var(--bg-card-hover); }
+table.lit-table tbody tr:last-child { border-bottom: none; }
+table.lit-table td {
+  padding: 0.75rem 1rem;
+  vertical-align: top;
+  color: var(--text-dim);
+}
+table.lit-table td:first-child { color: var(--text); font-weight: 500; }
+.tag {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  margin: 0.1rem;
+}
+.tag-skill { background: rgba(106,184,122,0.15); color: var(--green); }
+.tag-equity { background: rgba(154,122,212,0.15); color: var(--purple); }
+.tag-incentive { background: rgba(212,152,90,0.15); color: var(--orange); }
+.tag-time { background: rgba(212,104,90,0.15); color: var(--red); }
+.tag-peer { background: rgba(90,142,212,0.15); color: var(--blue); }
+.tag-info { background: rgba(90,184,184,0.15); color: var(--teal); }
+.tag-tech { background: rgba(201,165,92,0.15); color: var(--accent); }
+.tag-heuristic { background: rgba(212,104,90,0.15); color: #d47a8a; }
+.tag-style { background: rgba(140,140,180,0.15); color: #a0a0c0; }
+
+.lit-count {
+  font-size: 0.8rem; color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+/* ─── FRAMEWORK DIAGRAM ─── */
+.framework-diagram {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2.5rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+.fd-row {
+  display: flex; justify-content: center;
+  gap: 1rem; flex-wrap: wrap;
+  margin: 1rem 0;
+}
+.fd-box {
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.85rem; font-weight: 500;
+  min-width: 120px;
+  text-align: center;
+}
+.fd-box.primary {
+  background: var(--accent-dim);
+  border: 1px solid var(--accent);
+  color: var(--accent-light);
+}
+.fd-box.secondary {
+  background: rgba(90,142,212,0.1);
+  border: 1px solid rgba(90,142,212,0.3);
+  color: var(--blue);
+}
+.fd-box.tertiary {
+  background: rgba(106,184,122,0.1);
+  border: 1px solid rgba(106,184,122,0.3);
+  color: var(--green);
+}
+.fd-box.warn {
+  background: rgba(212,104,90,0.1);
+  border: 1px solid rgba(212,104,90,0.3);
+  color: var(--red);
+}
+.fd-arrow {
+  color: var(--text-muted); font-size: 1.5rem;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ─── TABS ─── */
+.tab-bar {
+  display: flex; gap: 0.25rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+.tab-btn {
+  background: none; border: none;
+  padding: 0.75rem 1.2rem;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-family: inherit;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.tab-btn:hover { color: var(--text-dim); }
+.tab-btn.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ─── TIMELINE ─── */
+.timeline { position: relative; padding-left: 2.5rem; }
+.timeline::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 2px; background: var(--border);
+}
+.tl-item {
+  position: relative;
+  padding-bottom: 2rem;
+}
+.tl-item::before {
+  content: '';
+  position: absolute; left: -2.55rem; top: 0.4rem;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+}
+.tl-item .tl-year {
+  font-size: 0.75rem; font-weight: 700;
+  color: var(--accent); margin-bottom: 0.3rem;
+}
+.tl-item .tl-title {
+  font-weight: 600; font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+}
+.tl-item .tl-desc {
+  font-size: 0.85rem; color: var(--text-dim);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .model-grid { grid-template-columns: 1fr; }
+  nav .nav-links a { font-size: 0.75rem; padding: 0.3rem 0.5rem; }
+}
+@media (max-width: 600px) {
+  .section { padding: 3rem 1rem; }
+  nav { padding: 0 1rem; }
+  nav .logo { font-size: 0.85rem; }
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* ─── DETAIL PANEL ─── */
+.detail-overlay {
+  display: none;
+  position: fixed; top:0; left:0; right:0; bottom:0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  justify-content: center; align-items: center;
+  padding: 2rem;
+}
+.detail-overlay.open { display: flex; }
+.detail-panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  padding: 2.5rem;
+  max-width: 700px; width: 100%;
+  max-height: 80vh; overflow-y: auto;
+  position: relative;
+}
+.detail-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: none;
+  color: var(--text-muted); font-size: 1.5rem;
+  cursor: pointer;
+}
+.detail-close:hover { color: var(--text); }
+.detail-panel h3 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.2rem; margin-bottom: 0.5rem;
+  color: var(--accent-light);
+}
+.detail-panel .meta { color: var(--text-muted); font-size: 0.82rem; margin-bottom: 1rem; }
+.detail-panel .field { margin-bottom: 1rem; }
+.detail-panel .field-label {
+  font-size: 0.75rem; font-weight: 600;
+  color: var(--accent); text-transform: uppercase;
+  letter-spacing: 0.1em; margin-bottom: 0.3rem;
+}
+.detail-panel .field-value { color: var(--text-dim); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">医生决策研究</div>
+  <div class="nav-links">
+    <a href="#model" class="active">理论模型</a>
+    <a href="#framework">分析框架</a>
+    <a href="#literature">文献数据库</a>
+    <a href="#timeline">研究脉络</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <span class="hero-badge">Journal of Economic Literature · 2026</span>
+  <h1>医生决策行为<br>与<span class="gold">患者健康结局</span></h1>
+  <p class="subtitle">
+    基于 Currie, MacLeod & Musen (2026) 综述论文，系统梳理近年来经济学界关于医生诊断技能、决策阈值、实践风格差异及其对患者结局影响的研究进展。
+  </p>
+  <div class="hero-meta">
+    <span><strong>Janet Currie</strong> · Yale/Princeton</span>
+    <span><strong>W. Bentley MacLeod</strong> · Yale/Columbia</span>
+    <span><strong>Kate Musen</strong> · Columbia</span>
+    <span>涵盖 <strong>150+</strong> 篇文献</span>
+  </div>
+</section>
+
+<!-- MODEL SECTION -->
+<section class="section" id="model">
+  <div class="section-header">
+    <div class="label">第一部分</div>
+    <h2>核心理论模型</h2>
+    <p>论文构建了一个融合诊断技能、操作技能、医生信念、激励机制和患者池差异的统一模型框架，用以分析医生决策行为的变异来源。</p>
+  </div>
+
+  <div class="model-grid">
+    <!-- Card 1: Setup -->
+    <div class="model-card">
+      <h3>1. 基本设定</h3>
+      <p>患者 <em>i</em> 就诊于医生 <em>j</em>，医生在两种治疗之间选择：非密集治疗 (<em>t = NI</em>) 或密集治疗 (<em>t = I</em>)。患者的真实状态 α<sub>i</sub> ∈ {L, H}，低风险患者适合非密集治疗，高风险患者适合密集治疗。</p>
+      <div class="insight">例如：心脏病中，密集治疗是心导管术，非密集是药物管理；产科中，密集治疗是剖宫产，非密集是阴道分娩。</div>
+    </div>
+
+    <!-- Card 2: Utility -->
+    <div class="model-card">
+      <h3>2. 医生效用函数</h3>
+      <p>医生 <em>j</em> 对类型 α 的患者选择治疗 <em>t</em> 的期望效用为：</p>
+      <div class="math-block">$$U_{\alpha t j} = u_{\alpha t j} + \delta_{t j}$$</div>
+      <p>其中 <em>u<sub>αtj</sub></em> 是对患者的医学效益（取决于操作技能），<em>δ<sub>tj</sub></em> 捕捉非医学因素（报酬、偏好等），δ<sub>NIj</sub> = 0 为标准化。当 δ<sub>Ij</sub> &lt; 0 时，医生偏好非密集治疗或受到抑制密集治疗的激励。</p>
+    </div>
+
+    <!-- Card 3: Signal -->
+    <div class="model-card">
+      <h3>3. 诊断信号与诊断技能</h3>
+      <p>医生基于含噪声的信号进行诊断：</p>
+      <div class="math-block">$$T_{ij} = \begin{cases} 1 + \epsilon / \gamma_j & \text{若 } \alpha_i = H \\ -1 + \epsilon / \gamma_j & \text{若 } \alpha_i = L \end{cases}$$</div>
+      <p>其中 ε ~ N(0,1)，γ<sub>j</sub> 是诊断技能。γ<sub>j</sub> 越高，信号方差越小，误诊概率越低。美国国家科学院指出，诊断错误影响 5% 的门诊患者，导致 10% 的患者死亡。</p>
+    </div>
+
+    <!-- Card 4: Threshold -->
+    <div class="model-card">
+      <h3>4. 最优决策阈值</h3>
+      <p>医生效用最大化的决策阈值为：</p>
+      <div class="math-block">$$\tau_j^* = b_j^* / \gamma_j^2$$</div>
+      <p>其中：</p>
+      <div class="math-block">$$b_j^* \equiv \frac{1}{2}\left(\ln\frac{\Delta_{LNIj}}{\Delta_{HIj}} + \ln\frac{p_{Lj}}{p_{Hj}}\right)$$</div>
+      <p>决策阈值取决于：诊断技能 γ<sub>j</sub>、治疗相对有效性 Δ<sub>LNIj</sub>/Δ<sub>HIj</sub>、以及医生对患者类型比例的先验信念 p<sub>Lj</sub>/p<sub>Hj</sub>。</p>
+    </div>
+
+    <!-- Card 5: ROC -->
+    <div class="model-card full">
+      <h3>5. ROC 曲线与诊断质量</h3>
+      <p>诊断质量用两个指标衡量：</p>
+      <div class="math-block">
+        $$TPR_j = \Pr[t_{ij}=I \mid \alpha_i=H, j] = F(\gamma_j(1-\tau_j))$$
+        <br>
+        $$FPR_j = \Pr[t_{ij}=I \mid \alpha_i=L, j] = F(\gamma_j(-1-\tau_j))$$
+      </div>
+      <p>TPR 为真阳性率（高风险患者正确获得密集治疗的概率），FPR 为假阳性率（低风险患者错误获得密集治疗的概率）。ROC 曲线上不同点对应不同决策阈值，曲线位置高低反映诊断技能。</p>
+      <div class="insight">
+        <strong>核心推论：</strong>诊断技能 γ<sub>j</sub> 提高使 ROC 曲线向左上方移动，两类患者的结局都改善。当诊断技能很低时，医生倾向对所有患者使用其认为"平均最优"的同一种治疗——虽然这增加了医生内部治疗的一致性，但如果不同医生有不同信念，则会增加医生间行为差异。
+      </div>
+    </div>
+
+    <!-- Card 6: Doctor types -->
+    <div class="model-card">
+      <h3>6. "牛仔"与"安慰者"</h3>
+      <p><strong>激进型医生 (A/"cowboy")</strong>：b<sub>A</sub> &lt; 0，更倾向密集治疗。</p>
+      <p><strong>保守型医生 (C/"comforter")</strong>：b<sub>C</sub> &gt; 0，更倾向非密集治疗。</p>
+      <p>诊断技能下降时，激进型医生不当使用密集治疗的增幅更大，保守型医生漏用密集治疗的增幅更大。</p>
+    </div>
+
+    <!-- Card 7: Key results -->
+    <div class="model-card">
+      <h3>7. 关键推论汇总</h3>
+      <div class="proposition-list">
+        <div class="proposition">
+          <div class="num">P1</div>
+          <div class="content">
+            <strong>诊断技能越高</strong>
+            <p>TPR - FPR 差值越大，两类患者结局都改善</p>
+          </div>
+        </div>
+        <div class="proposition">
+          <div class="num">P2</div>
+          <div class="content">
+            <strong>操作技能影响阈值</strong>
+            <p>更擅长密集手术的医生会降低阈值，做更多手术</p>
+          </div>
+        </div>
+        <div class="proposition">
+          <div class="num">P3</div>
+          <div class="content">
+            <strong>信念影响决策</strong>
+            <p>即使面对相同患者，先验信念不同的医生会做出不同选择</p>
+          </div>
+        </div>
+        <div class="proposition">
+          <div class="num">P4</div>
+          <div class="content">
+            <strong>财务激励扭曲决策</strong>
+            <p>当 δ<sub>Ij</sub> 足够大时，医生不顾信号对所有患者使用密集治疗</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FRAMEWORK -->
+<section class="section" id="framework">
+  <div class="section-header">
+    <div class="label">第二部分</div>
+    <h2>分析框架总览</h2>
+    <p>论文将医生决策的影响因素组织为以下层次，并通过文献综述逐一讨论。</p>
+  </div>
+
+  <div class="framework-diagram">
+    <div class="fd-row">
+      <div class="fd-box primary">诊断技能 γ<sub>j</sub></div>
+      <div class="fd-box primary">操作技能 s<sub>tj</sub></div>
+      <div class="fd-box primary">信念 p<sub>Lj</sub>/p<sub>Hj</sub></div>
+      <div class="fd-box primary">激励 δ<sub>tj</sub></div>
+    </div>
+    <div class="fd-arrow">↓ 影响 ↓</div>
+    <div class="fd-row">
+      <div class="fd-box secondary">决策阈值 τ<sub>j</sub>*</div>
+    </div>
+    <div class="fd-arrow">↓ 决定 ↓</div>
+    <div class="fd-row">
+      <div class="fd-box tertiary">治疗选择 t<sub>ij</sub></div>
+      <div class="fd-box tertiary">TPR / FPR</div>
+    </div>
+    <div class="fd-arrow">↓ 导致 ↓</div>
+    <div class="fd-row">
+      <div class="fd-box warn">患者健康结局</div>
+      <div class="fd-box warn">医疗支出</div>
+      <div class="fd-box warn">健康公平</div>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="tab-factors">影响因素</button>
+    <button class="tab-btn" data-tab="tab-interventions">改善途径</button>
+    <button class="tab-btn" data-tab="tab-identification">经验识别策略</button>
+  </div>
+
+  <div class="tab-content active" id="tab-factors">
+    <div class="model-grid">
+      <div class="model-card">
+        <h3>技能、经验与培训</h3>
+        <p>高排名医学院培训的"A 队"住院医与普通"B 队"相比，患者住院时间更短、费用更低，但健康结局相似——B 队用更多检查资源弥补技能不足。初始技能在 16 年后仍能预测结局。医生经验的效果有限，最近的手术经验可能最重要。</p>
+      </div>
+      <div class="model-card">
+        <h3>时间压力与疲劳</h3>
+        <p>时间压力效果取决于哪种行动对医生最便利：急诊中压力导致更多入院（避免遗漏），初级保健中压力导致更少检查（节省时间）。班次末尾入院率上升 21%，费用增加 23%。西班牙研究发现凌晨非计划剖宫产概率更高。</p>
+      </div>
+      <div class="model-card">
+        <h3>同行与团队效应</h3>
+        <p>心脏病学家搬迁到新地区后一年内即适应当地治疗风格。外科医生与其他医生的共同工作经验增加一个标准差，30 天死亡率下降 10-14%。但识别真正的同行效应很困难——类似医生可能聚集在同一地区。</p>
+      </div>
+      <div class="model-card">
+        <h3>财务激励</h3>
+        <p>Medicare 报销率提高使选择性手术增加（弹性 > 1）。Medicaid 支付差距解释了大量就医可及性差异。封顶支付（capitation）使资源使用减少 12%。但激励设计不当会导致游戏行为（如诊断上编码、转移低成本患者）。</p>
+      </div>
+      <div class="model-card">
+        <h3>健康公平与差异</h3>
+        <p>黑人儿童在急诊中获得镇痛的概率更低。性别一致性研究发现女性患者由男性医生治疗心脏病的存活率更低。黑人患者由黑人医生治疗时死亡率下降 27%。种族差异在医院满负荷时加剧。</p>
+      </div>
+      <div class="model-card">
+        <h3>信念与认知偏差</h3>
+        <p>医生过度依赖年龄等突出特征做决策。80 岁后冠脉搭桥概率骤降 28%。1500 克"极低出生体重"阈值导致刚超过该值的婴儿被拒绝本可挽救生命的治疗。医生对兄弟姐妹的 ADHD 诊断会受到错误信息影响。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content" id="tab-interventions">
+    <div class="model-grid">
+      <div class="model-card">
+        <h3>信息提供</h3>
+        <p>向高量处方医生发送比较信函的效果不一：单次信函对 Schedule II 药物无效，但三次信函使 Quetiapine 处方减少 11%。向医生告知其患者因阿片类药物过量死亡，使处方减少 9.7%。</p>
+      </div>
+      <div class="model-card">
+        <h3>启发式与指南</h3>
+        <p>遵循指南可改善结局（青少年抑郁治疗违反指南导致更多自伤和急诊就诊），但合规性不持久——结肠镜筛查改善仅维持三个月。指南设计的最优形式（处方式 vs 护栏式）是未来研究方向。</p>
+      </div>
+      <div class="model-card">
+        <h3>电子病历与远程医疗</h3>
+        <p>电子病历对 Medicare 质量指标影响有限，但在产科领域每增加 10% 采用率可降低新生儿死亡率 3%。远程医疗设备减少了急诊和住院就诊，增加了初级保健就诊，但也增加了抗生素使用。</p>
+      </div>
+      <div class="model-card">
+        <h3>算法决策工具与 AI</h3>
+        <p>向放射科医生提供 AI 预测并未改善诊断准确性——医生错误地将 AI 预测视为独立信息源。EPIC 的脓毒症 AI 工具漏诊了 67% 的患者。在训练数据中的选择偏差和种族偏差是关键挑战。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content" id="tab-identification">
+    <div class="model-grid">
+      <div class="model-card">
+        <h3>Chan, Gentzkow & Yu (2022)</h3>
+        <p><strong>设定：</strong>急诊中放射科医生随机分配阅读疑似肺炎患者的 X 光片。</p>
+        <p><strong>优势：</strong>随机分配 + 可观察误诊（漏诊患者会重返医院） → 可直接计算每位医生的 TPR 和 FPR，进而推导诊断技能和决策阈值。</p>
+        <p><strong>发现：</strong>诊断技能差异解释了 39% 的诊断决策变异和 78% 的结局变异。</p>
+      </div>
+      <div class="model-card">
+        <h3>Abaluck et al. (2016)</h3>
+        <p><strong>设定：</strong>Medicare 观察数据，医生为疑似肺栓塞患者决定是否做 CT 扫描。</p>
+        <p><strong>方法：</strong>假设所有医生诊断技能相同（变异仅来自阈值和患者池），用参数化选择模型 + 逆 Mills 比率分离医生阈值和患者池效应。</p>
+        <p><strong>发现：</strong>医生在评估患者风险时使用了错误的权重——对临床症状反应强烈但忽视已知风险因素。</p>
+      </div>
+      <div class="model-card full">
+        <h3>Currie & MacLeod (2017)</h3>
+        <p><strong>设定：</strong>新泽西州 ~100 万份出生记录，剖宫产为密集手术。患者非随机分配，医生在诊断技能和操作技能上都存在差异。</p>
+        <p><strong>方法：</strong>用患者特征预测剖宫产适宜性 ρ(x<sub>i</sub>)，将医生对适宜性的敏感度 θ<sub>j</sub> = TPR<sub>j</sub> - FPR<sub>j</sub> 作为诊断技能的代理变量。用市场层面 leave-one-out 技能平均值作为工具变量解决内生性。</p>
+        <p><strong>发现：</strong>更好的诊断技能会降低低风险母亲的剖宫产率、增加高风险分娩的剖宫产率、减少婴儿死亡。操作技能也独立影响结局。一刀切降低剖宫产率的政策会伤害高风险妊娠婴儿。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LITERATURE DATABASE -->
+<section class="section" id="literature">
+  <div class="section-header">
+    <div class="label">第三部分</div>
+    <h2>文献数据库</h2>
+    <p>综合正文及补充附录中讨论的代表性研究，按主题分类、可搜索、可排序。点击行查看详情。</p>
+  </div>
+
+  <div class="lit-controls">
+    <input type="text" class="search-box" id="searchInput" placeholder="搜索作者、标题、关键词...">
+    <div class="filter-group" id="filterGroup">
+      <button class="filter-btn active" data-cat="all">全部</button>
+      <button class="filter-btn" data-cat="style">实践风格</button>
+      <button class="filter-btn" data-cat="skill">技能/培训</button>
+      <button class="filter-btn" data-cat="equity">健康公平</button>
+      <button class="filter-btn" data-cat="incentive">财务激励</button>
+      <button class="filter-btn" data-cat="time">时间压力</button>
+      <button class="filter-btn" data-cat="peer">同行效应</button>
+      <button class="filter-btn" data-cat="info">信息干预</button>
+      <button class="filter-btn" data-cat="heuristic">启发式/指南</button>
+      <button class="filter-btn" data-cat="tech">技术/AI</button>
+    </div>
+  </div>
+  <div class="lit-count" id="litCount"></div>
+
+  <div class="lit-table-wrap">
+    <table class="lit-table" id="litTable">
+      <thead>
+        <tr>
+          <th data-sort="author">作者 <span class="sort-icon">↕</span></th>
+          <th data-sort="year">年份 <span class="sort-icon">↕</span></th>
+          <th data-sort="topic">主题</th>
+          <th data-sort="context">研究情境</th>
+          <th data-sort="finding">核心发现</th>
+          <th>分类</th>
+        </tr>
+      </thead>
+      <tbody id="litBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="section" id="timeline">
+  <div class="section-header">
+    <div class="label">第四部分</div>
+    <h2>研究发展脉络</h2>
+    <p>按时间线梳理该领域的关键里程碑。</p>
+  </div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">2007</div>
+      <div class="tl-title">Chandra & Staiger 奠基性工作</div>
+      <div class="tl-desc">提出区域治疗强度差异与操作技能内生关系的模型。高密集治疗地区的医生在密集手术上更熟练，形成正反馈循环。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2010</div>
+      <div class="tl-title">Almond et al. — 启发式决策的证据</div>
+      <div class="tl-desc">发现 1500 克"极低出生体重"阈值导致刚超过该阈值的婴儿被剥夺了可挽救生命的治疗，开创了用回归断点设计研究医疗启发式的方法。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2010</div>
+      <div class="tl-title">Doyle, Ewer & Wagner — 随机分配的医生团队</div>
+      <div class="tl-desc">将住院患者随机分配给不同水平的住院医团队，发现高排名医学院毕业的"A 队"用更少资源达到相同健康结局。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2014</div>
+      <div class="tl-title">Clemens & Gottlieb — 财务激励的因果效应</div>
+      <div class="tl-desc">利用 Medicare 报销区域合并，发现报销率提高使选择性手术和住院率增加，但不影响死亡率。供给弹性 > 1。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2016</div>
+      <div class="tl-title">Abaluck et al. — 检测效率的决定因素</div>
+      <div class="tl-desc">利用 Medicare 数据建立选择模型，发现医生在评估肺栓塞风险时系统性地误用患者特征权重。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2017</div>
+      <div class="tl-title">Currie & MacLeod — 诊断与操作技能的分离</div>
+      <div class="tl-desc">首次在经验文献中将诊断技能与操作技能分离，证明两者都独立影响产科结局。用工具变量解决内生性。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2018</div>
+      <div class="tl-title">Doctor et al. — "致命信件"实验</div>
+      <div class="tl-desc">向开具致死阿片处方的医生发送患者死亡通知信，阿片处方量在三个月内下降 9.7%。最接近"纯信息"干预的经典实验。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2018-2020</div>
+      <div class="tl-title">种族/性别一致性研究爆发</div>
+      <div class="tl-desc">Greenwood et al. 发现女性心脏病患者由男性医生治疗时存活率更低；Hill et al. 发现黑人患者由黑人医生治疗时死亡率下降 27%。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2020</div>
+      <div class="tl-title">Chandra & Staiger — 医院层面的配置效率</div>
+      <div class="tl-desc">证明部分医院过度使用非其比较优势的手术，消除这种"配置低效"可使治疗效益提高 44%。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2022</div>
+      <div class="tl-title">Chan, Gentzkow & Yu — 诊断技能的直接度量</div>
+      <div class="tl-desc">利用 VA 急诊中患者的随机分配，直接计算放射科医生的 TPR 和 FPR。发现诊断技能差异解释了 39% 的诊断决策变异和 78% 的结局变异。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2022</div>
+      <div class="tl-title">Mullainathan & Obermeyer — 机器学习诊断误差</div>
+      <div class="tl-desc">用机器学习模型识别应接受更密集治疗的心脏病患者，发现医生过度依赖少数突出特征而忽略细微指标。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2023</div>
+      <div class="tl-title">Agarwal et al. — 人机协作的实验证据</div>
+      <div class="tl-desc">随机实验发现向放射科医生提供 AI 预测并未改善准确性——医生错误地将 AI 视为独立信息源。提出高置信度案例由 AI 决定、其余由人类决定的混合方案。</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2024-2026</div>
+      <div class="tl-title">前沿问题涌现</div>
+      <div class="tl-desc">Cuddy & Currie (2026) 证明违反青少年心理健康治疗指南导致显著不良后果。Corredor-Waldron et al. (2026) 发现剖宫产种族差异在手术室繁忙时消失。领域聚焦于如何将理论洞见转化为改善健康的实际干预。</div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAIL OVERLAY -->
+<div class="detail-overlay" id="detailOverlay">
+  <div class="detail-panel" id="detailPanel">
+    <button class="detail-close" id="detailClose">&times;</button>
+    <div id="detailContent"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="text-align:center; padding: 3rem 2rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.8rem;">
+  基于 Currie, MacLeod & Musen (2026), <em>Journal of Economic Literature</em> 64(1), 141–194 整理制作<br>
+  仅供学术学习使用 · 2026
+</footer>
+
+<script>
+// ─── LITERATURE DATA ───
+const papers = [
+  // Practice Style (Table 1)
+  {author:"Abaluck et al.", year:2016, topic:"肺栓塞检测效率的决定因素", context:"20% Medicare Part B 样本 2000-2009", finding:"医生平均在认为阳性概率 > 5.6% 时进行检测(SD=5.4)。医生对临床症状反应强烈，但忽视已知风险因素。", cats:["style","skill"], method:"参数化选择模型，选择函数λ(·)", journal:"American Economic Review"},
+  {author:"Ahammer & Schober", year:2020, topic:"GP 实践风格与奥地利医疗支出变异", context:"上奥地利健康保险基金 2005-12", finding:"高使用率 GP 的患者支出比平均 GP 高 20-148.5%。年长医生、女性医生和高密度地区医生支出更高。", cats:["style"], method:"AKM 分解 + 患者/GP 固定效应", journal:"Health Economics"},
+  {author:"Badinski et al.", year:2023, topic:"医生实践强度与地区医疗利用差异", context:"20% Medicare FFS 1998-2013", finding:"地区医生平均实践强度增加1个SD使每次就诊利用增加 13%。约1/3地区差异由医生强度解释。", cats:["style"], method:"搬迁者设计 + 患者/医生固定效应", journal:"NBER WP"},
+  {author:"Berndt et al.", year:2015, topic:"抗精神病药处方集中度", context:"IMS Health 零售处方 10% 样本", finding:"医生三分之二的处方集中在同一种药物。处方量越大的医生，集中度越低（暗示边做边学）。", cats:["style"], method:"描述性统计", journal:"Journal of Health Economics"},
+  {author:"Chan, Gentzkow & Yu", year:2022, topic:"放射科医生诊断技能的变异与后果", context:"VA 急诊 1999-2015", finding:"诊断技能差异解释 39% 诊断决策变异和 78% 结局变异。诊断阈值随技能提高而提高。", cats:["style","skill"], method:"随机分配 + 结构模型（ROC曲线）", journal:"Quarterly Journal of Economics"},
+  {author:"Currie, MacLeod & Van Parys", year:2016, topic:"心脏病治疗中的实践风格与结局", context:"佛罗里达 AMI 住院数据 1992-2014", finding:"在同一医院和年份内，更激进的医生患者费用更高、结局更好。遵循'最佳实践'的医生对健康老年人手术太少。", cats:["style","skill"], method:"定义适宜性 → 回归截距(激进度)和斜率(响应度)", journal:"Journal of Health Economics"},
+  {author:"Currie & MacLeod", year:2017, topic:"产科中诊断与操作技能如何影响结局", context:"新泽西 ~100万出生记录 1997-2006", finding:"更好的诊断减少低风险剖宫产、增加高风险剖宫产、防止婴儿死亡。操作技能全面改善结局。", cats:["style","skill"], method:"IV策略：市场层面leave-one-out技能均值", journal:"Journal of Labor Economics"},
+  {author:"Cutler et al.", year:2019, topic:"'牛仔'和'安慰者'医生比例与终末期支出", context:"598心脏科+967初级保健+2882 Medicare患者", finding:"牛仔医生比例增加1SD使最后2年支出增加11-13%。安慰者使支出减少3-6%。两者均不影响存活。", cats:["style","incentive"], method:"基于调查的医生分类", journal:"AEJ: Economic Policy"},
+  {author:"Fadlon & Van Parys", year:2020, topic:"PCP 实践风格与患者利用", context:"20% Medicare 样本", finding:"换到高支出 PCP 使初级保健支出增加 4%，就诊增加 38%。", cats:["style"], method:"事件研究/DID，利用 PCP 退休或搬迁", journal:"Journal of Health Economics"},
+  {author:"Marquardt", year:2022, topic:"医生实践风格与 ADHD 诊断", context:"大型医疗系统 129 名医生的电子病历", finding:"医生强度增加1SD使诊断概率从3.5%增至22.5%。经验少的男性医生强度更低。", cats:["style"], method:"NLP 测量症状适宜性 → 回归截距和斜率", journal:"Fed Reserve Chicago WP"},
+
+  // Equity
+  {author:"Goyal et al.", year:2015, topic:"急诊阑尾炎儿童的疼痛管理种族差异", context:"美国急诊阑尾炎患儿", finding:"黑人儿童获得任何镇痛的概率更低。", cats:["equity"], method:"观察数据分析", journal:"JAMA Pediatrics"},
+  {author:"Hoffman et al.", year:2016, topic:"疼痛评估中的种族偏见", context:"医生调查+临床案例", finding:"认同关于黑人生理反应错误信念的医生更倾向低估黑人患者疼痛。", cats:["equity"], method:"调查+案例实验", journal:"PNAS"},
+  {author:"Greenwood, Carnahan & Huang", year:2018, topic:"性别一致性与女性心脏病死亡率", context:"匹配样本", finding:"仅女性患者在男性医生手下存活率更低。男性医生过去治疗女性患者越多/身边女性医生越多，效果越好。", cats:["equity"], method:"匹配+条件分析", journal:"PNAS"},
+  {author:"Hill, Jones & Woodworth", year:2023, topic:"种族一致性与患者死亡率", context:"佛罗里达无保险 ED 入院患者", finding:"黑人患者由黑人医生治疗时死亡率下降 27%。", cats:["equity"], method:"IV：同班次同种族医生占比", journal:"Journal of Health Economics"},
+  {author:"Cabral & Dillender", year:2024, topic:"性别差异与工伤鉴定", context:"德州工伤赔偿全部记录", finding:"女性申请人在女性医生处获得赔偿概率高 5.2%，赔偿价值高 8.6%。男性患者无差异。", cats:["equity"], method:"条件随机分配", journal:"American Economic Review"},
+  {author:"Singh & Venkataramani", year:2022, topic:"医院满负荷时的种族差异", context:"美国医院数据", finding:"种族死亡差异在医院满负荷时加剧。", cats:["equity"], method:"医院固定效应 + 容量变异", journal:"NBER WP"},
+  {author:"Corredor-Waldron, Currie & Schnell", year:2026, topic:"剖宫产种族差异的驱动因素", context:"美国产科数据", finding:"差异在低风险女性中最大，在手术室繁忙时消失——暗示医生在自主权大时存在差异化行为。", cats:["equity"], method:"医院固定效应 + 手术室占用变异", journal:"NBER WP"},
+  {author:"Frakes & Gruber", year:2022, topic:"军队中种族一致性与医疗质量", context:"美国军事卫生系统", finding:"种族一致使黑人相对白人死亡率下降 15%。超过一半归因于患者用药依从性改善而非医生决策。", cats:["equity"], method:"基地搬迁 → 医生更换", journal:"NBER WP"},
+  {author:"Alsan, Garrick & Graziani", year:2019, topic:"种族一致性与预防保健", context:"Oakland 特设诊所 RCT", finding:"黑人医生在说服黑人男性患者接受预防筛查方面显著更成功。", cats:["equity"], method:"随机对照试验", journal:"American Economic Review"},
+
+  // Skill/Training/Experience
+  {author:"Doyle, Ewer & Wagner", year:2010, topic:"医生人力资本的回报", context:"住院患者随机分配给不同团队", finding:"高排名医学院'A队'患者住院更短、费用更低，结局相似。'B队'用更多检查资源。", cats:["skill"], method:"随机分配", journal:"Journal of Health Economics"},
+  {author:"Epstein, Nicholson & Asch", year:2016, topic:"初始技能的长期预测力", context:"产科医生纵向数据", finding:"首年技能 16 年后仍预测结局，经验年限影响甚微。", cats:["skill"], method:"纵向面板", journal:"AJHE"},
+  {author:"Schnell & Currie", year:2018, topic:"医学教育与阿片处方", context:"全美处方数据", finding:"高排名医学院毕业生处方更少阿片，但在接受过专门疼痛培训的专科中无差异——暗示培训内容重要。", cats:["skill","info"], method:"同一执业地址内比较", journal:"AJHE"},
+  {author:"Chan & Chen", year:2022, topic:"护士执业者 vs 医生的生产力", context:"VA 急诊", finding:"护士执业者平均使住院时间和费用增加，但结局差异小。两组内部技能差异大——很多 NP 优于部分医生。", cats:["skill"], method:"IV：当值 NP 人数", journal:"NBER WP"},
+  {author:"Gowrisankaran, Joiner & Léger", year:2023, topic:"实践风格与 ED 成本", context:"加拿大魁北克 ED", finding:"更密集实践风格的 ED 医生患者健康结局更差。", cats:["skill","time"], method:"随机分配 + 医生固定效应", journal:"Management Science"},
+  {author:"Facchini", year:2022, topic:"近期手术经验与结局", context:"产科纵向数据", finding:"过去四周做更多剖宫产的产科医生婴儿结局更好（'遗忘效应'）。", cats:["skill"], method:"医生固定效应", journal:"Health Economics"},
+  {author:"Chandra & Staiger", year:2020, topic:"医院层面的配置效率", context:"45州心脏病数据 1994-95", finding:"部分医院过度使用非其比较优势的手术。消除配置低效可使效益提高 44%。", cats:["skill"], method:"结构模型", journal:"QJE"},
+  {author:"Currie & Zhang", year:2025, topic:"预测初级保健医生效率", context:"初级保健数据", finding:"更高技能的医生'用更少做更多'——以更少投入达到相同或更好结局。", cats:["skill"], method:"固定效应 + 预测模型", journal:"Review of Economics and Statistics"},
+
+  // Time
+  {author:"Chan", year:2018, topic:"急诊中的'偷懒'效率", context:"急诊医生班次数据", finding:"班次最后一小时入院率增加 21%，费用增加 23%。无显著死亡率或返院效应。出入接班可消除此效应。", cats:["time"], method:"班次内变异", journal:"Econometrica"},
+  {author:"Freedman et al.", year:2021, topic:"时间压力对初级保健的影响", context:"初级保健候诊时间数据", finding:"意外增加的候诊时间导致更少转诊、阿片处方和宫颈筛查，更多随访就诊。", cats:["time"], method:"意外候诊时间变异", journal:"Journal of Health Economics"},
+  {author:"Persson et al.", year:2019, topic:"决策疲劳与手术推荐", context:"骨科外科医生班次数据", finding:"在一个班次内，每多看一个患者，推荐手术的概率就下降。", cats:["time"], method:"班次内变异", journal:"Health Economics"},
+  {author:"Gruber, Hoe & Stoye", year:2023, topic:"缩短候诊时间的意外效果", context:"英国 ED 候诊时间政策", finding:"压力下医生通过入院减少候诊，使医院成本增加 4.9%，但对死亡率无影响。", cats:["time"], method:"政策变化 DID", journal:"Review of Economics and Statistics"},
+  {author:"Costa-Ramón et al.", year:2018, topic:"剖宫产时机与新生儿健康", context:"西班牙医院产科数据", finding:"凌晨 11pm-4am 非计划剖宫产概率更高。不同时段产妇医学特征相似。", cats:["time"], method:"时段内变异", journal:"Journal of Health Economics"},
+  {author:"Chodick et al.", year:2025, topic:"挑战性就诊后的诊疗变异", context:"以色列初级保健数据", finding:"医生在接诊新癌症诊断患者后一小时内，订购各类诊断检查的概率大幅上升（不限于癌症筛查）。", cats:["time"], method:"事件研究", journal:"Review of Economics and Statistics"},
+
+  // Peer
+  {author:"Agha & Molitor", year:2018, topic:"学术带头人对新药采用的影响", context:"Medicare + 临床试验PI数据", finding:"与PI同一转诊区的患者获得新药概率高 36%。区域间 4 年后趋同。在原本采用最慢的地区效果最大。", cats:["peer","info"], method:"地理距离变异", journal:"Review of Economics and Statistics"},
+  {author:"Chen", year:2021, topic:"团队特定人力资本与绩效", context:"心脏手术数据", finding:"外科医生与团队成员共事经验增加 1SD，30天死亡率下降 10-14%，资源使用减少。", cats:["peer","skill"], method:"团队组成变异", journal:"American Economic Review"},
+  {author:"Molitor", year:2018, topic:"心脏科医生搬迁后实践风格演变", context:"心脏科医生搬迁数据", finding:"搬迁后 1 年内，新地区心导管率每增 1pp，医生自己增 0.63pp。从低到高强度地区效果更大。", cats:["peer","style"], method:"搬迁者设计", journal:"AEJ: Economic Policy"},
+  {author:"Silver", year:2021, topic:"急诊团队速度的同行效应", context:"美国 ED 班次数据", finding:"与快节奏团队搭档时医生加速。平均无害，但最高风险患者 30 天死亡率上升。", cats:["peer","time"], method:"班次组成变异", journal:"Review of Economic Studies"},
+  {author:"Chan", year:2021, topic:"住院医训练中的同行影响", context:"大型教学医院住院医数据", finding:"低年级住院医行为在升为高年级后变异急剧增加——低年级的行为由高年级约束。", cats:["peer","skill"], method:"住院医年级转换", journal:"AEJ: Economic Policy"},
+  {author:"Currie, MacLeod & Ouyang", year:2024, topic:"儿童精神科处方的同行溢出", context:"美国处方数据", finding:"部分'同行效应'实为相似医生的共同演化。真正的局部溢出效应存在，非精神科医生受影响更大。", cats:["peer"], method:"局部vs远距离相似医生比较", journal:"AEA P&P"},
+
+  // Incentive
+  {author:"Clemens & Gottlieb", year:2014, topic:"Medicare 报销率与治疗决策", context:"Medicare 报销区域合并", finding:"报销率提高使选择性手术增加。弹性 > 1。对 4 年死亡率无影响。", cats:["incentive"], method:"报销区域合并准实验", journal:"American Economic Review"},
+  {author:"Alexander & Schnell", year:2024, topic:"Medicaid 支付与就医可及性", context:"ACA Medicaid 费率提升", finding:"消除 Medicaid 与私人保险支付差距可消除儿童初级保健可及性差异，成人差异减少三分之二。", cats:["incentive","equity"], method:"州际费率变异 DID", journal:"AEJ: Applied Economics"},
+  {author:"Alexander", year:2020, topic:"支付医生降低成本的意外后果", context:"新泽西医院成本降低激励", finding:"项目对成本或手术使用无效。医生通过将低成本患者导向参与医院来获取奖金。", cats:["incentive"], method:"医院参与变异", journal:"Journal of Political Economy"},
+  {author:"Johnson & Rehavi", year:2016, topic:"医生作为患者：信息与激励", context:"医生生产的全美出生记录", finding:"医生患者非计划剖宫产概率低 6%。财务激励仅影响非医生患者。", cats:["incentive"], method:"母亲职业信息", journal:"AEJ: Economic Policy"},
+  {author:"Chorniy, Currie & Sonchak", year:2018, topic:"Medicaid 管理式医疗合同与诊断", context:"南卡 Medicaid 儿童纵向数据", finding:"从 FFS 转为封顶支付后 ADHD 诊断增加 11.6%，哮喘诊断增加 8.2%。", cats:["incentive"], method:"同一儿童跨支付制度纵向追踪", journal:"Journal of Health Economics"},
+  {author:"Carey, Lieber & Miller", year:2021, topic:"药企支付与医生处方行为", context:"Medicare Part D + Open Payments", finding:"即使小额支付也使被推广药物处方增加约 2%。但未见效力降低或延迟转为仿制药。", cats:["incentive"], method:"支付时间变异", journal:"Journal of Public Economics"},
+  {author:"Carey, Daly & Li", year:2025, topic:"癌症药物营销与结局", context:"Medicare 癌症患者数据", finding:"营销支付增加了 Medicare 癌症药物支出，但未改善患者死亡率。", cats:["incentive"], method:"支付变异", journal:"Journal of Public Economics"},
+  {author:"Brekke et al.", year:2019, topic:"竞争与病假开具", context:"挪威行政数据", finding:"医生为自己患者开具病假概率比 ED 患者高 25-35%。竞争压力越大差距越大。", cats:["incentive","peer"], method:"同一医生在自有诊所vs ED的比较", journal:"Journal of Health Economics"},
+  {author:"Currie, Li & Schnell", year:2023, topic:"竞争对处方行为的影响", context:"NP 独立处方权法律变化", finding:"面临 NP 竞争的 GP 增加了受控抗焦虑药和阿片处方——竞争可能损害患者。", cats:["incentive"], method:"州法律变化 DID", journal:"NBER WP"},
+  {author:"Dunn et al.", year:2024, topic:"索赔拒绝与医生行为", context:"Medicare/Medicaid/商保索赔数据", finding:"18% 的 Medicaid 索赔被拒绝——高拒付率与低报销率同样是医生拒绝 Medicaid 患者的障碍。", cats:["incentive"], method:"索赔级别数据分析", journal:"QJE"},
+
+  // Information
+  {author:"Sacarny et al.", year:2016, topic:"Medicare 警告信对受控药物处方的影响", context:"高量处方者 RCT", finding:"告知医生其处方偏离同行的信函完全无效。", cats:["info"], method:"随机对照试验", journal:"Health Affairs"},
+  {author:"Sacarny et al.", year:2018, topic:"Quetiapine 同行比较信函", context:"高量 Quetiapine 处方者 RCT", finding:"三封信使处方天数减少 11.1%，持续≥2年。减少主要集中在低价值适应症。", cats:["info"], method:"随机对照试验", journal:"JAMA Psychiatry"},
+  {author:"Doctor et al.", year:2018, topic:"患者致死阿片过量对医生处方的影响", context:"加州处方监控数据 RCT", finding:"告知医生其患者因阿片过量死亡后，处方量 3 个月内下降 9.7%。", cats:["info"], method:"随机对照试验", journal:"Science"},
+  {author:"McKibbin", year:2023, topic:"临床试验信息对非适应症用药的影响", context:"癌症药物非适应症使用数据", finding:"有统计显著性结果发表后需求翻倍，但无显著结果时需求仅下降三分之一。", cats:["info"], method:"信息发布事件研究", journal:"Journal of Health Economics"},
+  {author:"Wu & David", year:2022, topic:"FDA 信息、相对技能与技术放弃", context:"子宫切除术数据", finding:"FDA 宣布微创手术新风险后整体使用下降，但更擅长微创手术的医生反而增加使用。", cats:["info","skill"], method:"FDA 公告前后比较", journal:"Journal of Health Economics"},
+  {author:"Kolstad", year:2013, topic:"质量报告卡与内在动机", context:"冠脉搭桥手术报告卡", finding:"内在动机比外在激励更重要。效果最大的是被揭示为本院最差的医生。", cats:["info","incentive"], method:"结构模型：消费者需求vs残差变化", journal:"American Economic Review"},
+  {author:"Howard & Hockenberry", year:2019, topic:"医生年龄与新证据采纳", context:"会阴切开术新证据发布", finding:"执业 10 年以上的医生更不愿改变实践。教学医院中新旧医生差距更小。", cats:["info","skill"], method:"年龄队列比较", journal:"Health Services Research"},
+
+  // Heuristic/Guidelines
+  {author:"Almond et al.", year:2010, topic:"极低出生体重阈值与婴儿治疗", context:"美国新生儿数据", finding:"刚低于 1500g 的婴儿获得更多治疗、存活率更高。过度依赖阈值使刚超过的婴儿被拒绝治疗。", cats:["heuristic"], method:"回归断点设计", journal:"QJE"},
+  {author:"Olenski et al.", year:2020, topic:"80岁阈值与冠脉搭桥手术", context:"心脏病患者数据", finding:"80岁后两周内入院患者接受搭桥手术概率骤降 28%。", cats:["heuristic"], method:"回归断点设计", journal:"NEJM"},
+  {author:"Coussens", year:2018, topic:"40岁阈值与缺血性心脏病检测", context:"ED 数据", finding:"40岁后检测增加近 10%，诊断和入院增加 20%。ED 不忙时效应更大。", cats:["heuristic"], method:"回归断点设计", journal:"SSRN WP"},
+  {author:"Currie & MacLeod", year:2020, topic:"抑郁治疗中的医生决策", context:"成人抑郁症处方数据", finding:"高诊断技能医生（精神科）的患者从治疗实验中获益，低技能医生（GP）的患者不获益。违反指南导致更差结局。", cats:["heuristic","skill"], method:"结构模型 + 处方数据", journal:"Econometrica"},
+  {author:"Cuddy & Currie", year:2026, topic:"青少年心理健康治疗指南违反的后果", context:"美国青少年医保理赔数据", finding:"违反指南的治疗导致更高医疗费用、更多自伤、更多 ED 就诊和住院。", cats:["heuristic"], method:"Post-LASSO IV（局部实践风格×患者特征）", journal:"Journal of Political Economy"},
+  {author:"Abaluck et al.", year:2021, topic:"房颤抗凝指南更新与医生合规", context:"房颤患者电子病历", finding:"医生向新指南趋近但合规高度不完美。严格遵循可多预防 24% 中风。偏离非由异质性治疗效果证成。", cats:["heuristic","info"], method:"文本挖掘指南知晓度 + RCT 数据", journal:"NBER WP"},
+  {author:"Kowalski", year:2023, topic:"乳腺 X 光筛查指南的行为含义", context:"加拿大大型 RCT", finding:"自愿筛查中被筛者更健康。依从组 14% 的发现为过度诊断。减少 40-50 岁筛查可消除有害过度治疗。", cats:["heuristic","tech"], method:"RCT + 异质性分析（always-takers, compliers, never-takers）", journal:"Review of Economic Studies"},
+  {author:"Geiger, Clapp & Cohen", year:2021, topic:"'高龄产妇'35岁阈值与围产期结局", context:"美国产科数据", finding:"35岁后更多筛查和专科就诊，新生儿死亡显著下降。效果在无明显风险因素的孕妇中最大。", cats:["heuristic"], method:"回归断点设计", journal:"JAMA Health Forum"},
+
+  // Technology
+  {author:"Zeltzer et al.", year:2023, topic:"设备辅助远程医疗的采用与利用", context:"以色列远程医疗设备推广", finding:"减少了急诊、急诊和住院就诊，增加初级保健就诊。但也增加了抗生素使用。", cats:["tech"], method:"设备推广变异", journal:"Journal of Health Economics"},
+  {author:"Zeltzer et al.", year:2024, topic:"新冠对远程医疗的长期影响", context:"以色列全民健保数据", finding:"初级保健就诊增加，总费用降低。无证据表明漏诊增加。", cats:["tech"], method:"疫情冲击 DID", journal:"JEEA"},
+  {author:"Dahlstrand", year:2022, topic:"远程医疗能否缩小健康差距", context:"瑞典模拟数据", finding:"将高风险患者匹配最高技能医生可减少可避免住院 8%。但实现此潜力的市场条件尚不确定。", cats:["tech","equity"], method:"反事实模拟", journal:"CEP Discussion Paper"},
+  {author:"Agarwal et al.", year:2023, topic:"人工智能与放射科医生的结合", context:"放射科诊断 RCT", finding:"AI 预测未改善诊断准确性。额外临床上下文信息有帮助。医生错误地将 AI 视为独立信息源。", cats:["tech"], method:"随机对照试验", journal:"NBER WP"},
+  {author:"Obermeyer et al.", year:2019, topic:"健康管理算法中的种族偏见", context:"大型保险公司风险预测算法", finding:"算法以总医疗支出预测风险，但因黑人患者条件支出更低而系统性低估其需求。", cats:["tech","equity"], method:"算法审计", journal:"Science"},
+  {author:"Wong et al.", year:2021, topic:"EPIC 脓毒症 AI 工具外部验证", context:"大型教学医院数据", finding:"该工具漏诊 67% 的脓毒症患者，同时对 18% 的所有患者产生误报。", cats:["tech"], method:"外部验证研究", journal:"JAMA Internal Medicine"},
+  {author:"Agha", year:2014, topic:"电子病历对医疗费用和质量的影响", context:"Medicare 个人数据 + 医院固定效应", finding:"采用电子病历使支出增加 1.3%，但对住院时间、质量、再入院或死亡率无影响。", cats:["tech"], method:"医院固定效应", journal:"Journal of Health Economics"},
+  {author:"Miller & Tucker", year:2011, topic:"电子病历能否拯救婴儿", context:"县级出生结局数据 1995-2006", finding:"采用率增加 10% 使新生儿死亡率下降 3%。归因于早产和分娩并发症减少。", cats:["tech"], method:"IV：州医疗隐私法", journal:"Journal of Political Economy"},
+  {author:"Alpert, Dykstra & Jacobson", year:2024, topic:"处方监控程序：麻烦成本 vs 信息", context:"必须查询型处方监控数据", finding:"必须查询制度影响所有类型患者（非仅已有处方者），暗示'麻烦成本'而非信息是主要机制。", cats:["tech","info"], method:"政策变异 DID", journal:"AEJ: Economic Policy"},
+  {author:"Mullainathan & Obermeyer", year:2022, topic:"机器学习诊断医生决策错误", context:"心脏病 ED 数据", finding:"医生系统性地错配治疗：过度重视少数突出特征而忽略细微指标。决策错误影响存活。", cats:["tech","skill"], method:"机器学习（GBDT+LASSO）vs 医生决策", journal:"QJE"},
+];
+
+const catLabels = {
+  style:"实践风格", skill:"技能/培训", equity:"健康公平", incentive:"财务激励",
+  time:"时间压力", peer:"同行效应", info:"信息干预", heuristic:"启发式/指南", tech:"技术/AI"
+};
+const catClass = {
+  style:"tag-style", skill:"tag-skill", equity:"tag-equity", incentive:"tag-incentive",
+  time:"tag-time", peer:"tag-peer", info:"tag-info", heuristic:"tag-heuristic", tech:"tag-tech"
+};
+
+let currentFilter = "all";
+let currentSort = {col: "year", dir: -1};
+let searchTerm = "";
+
+function renderTable() {
+  let filtered = papers.filter(p => {
+    if (currentFilter !== "all" && !p.cats.includes(currentFilter)) return false;
+    if (searchTerm) {
+      const s = searchTerm.toLowerCase();
+      return (p.author+p.topic+p.finding+p.context+(p.cats.map(c=>catLabels[c]).join(" "))).toLowerCase().includes(s);
+    }
+    return true;
+  });
+
+  filtered.sort((a,b) => {
+    const col = currentSort.col;
+    let va = a[col], vb = b[col];
+    if (col === "year") return (va - vb) * currentSort.dir;
+    return String(va).localeCompare(String(vb)) * currentSort.dir;
+  });
+
+  document.getElementById("litCount").textContent = `显示 ${filtered.length} / ${papers.length} 篇`;
+
+  const tbody = document.getElementById("litBody");
+  tbody.innerHTML = filtered.map((p, i) => `
+    <tr data-idx="${papers.indexOf(p)}" style="cursor:pointer">
+      <td>${p.author}</td>
+      <td>${p.year}</td>
+      <td>${p.topic}</td>
+      <td style="max-width:160px">${p.context}</td>
+      <td style="max-width:280px">${p.finding}</td>
+      <td>${p.cats.map(c=>`<span class="tag ${catClass[c]}">${catLabels[c]}</span>`).join("")}</td>
+    </tr>
+  `).join("");
+
+  tbody.querySelectorAll("tr").forEach(tr => {
+    tr.addEventListener("click", () => showDetail(parseInt(tr.dataset.idx)));
+  });
+}
+
+function showDetail(idx) {
+  const p = papers[idx];
+  const overlay = document.getElementById("detailOverlay");
+  document.getElementById("detailContent").innerHTML = `
+    <h3>${p.topic}</h3>
+    <div class="meta">${p.author} (${p.year}) · ${p.journal || ""}</div>
+    <div class="field"><div class="field-label">研究情境</div><div class="field-value">${p.context}</div></div>
+    <div class="field"><div class="field-label">研究方法</div><div class="field-value">${p.method || "详见原文"}</div></div>
+    <div class="field"><div class="field-label">核心发现</div><div class="field-value">${p.finding}</div></div>
+    <div class="field"><div class="field-label">分类标签</div><div class="field-value">${p.cats.map(c=>`<span class="tag ${catClass[c]}">${catLabels[c]}</span>`).join(" ")}</div></div>
+  `;
+  overlay.classList.add("open");
+}
+
+document.getElementById("detailClose").addEventListener("click", () => {
+  document.getElementById("detailOverlay").classList.remove("open");
+});
+document.getElementById("detailOverlay").addEventListener("click", e => {
+  if (e.target === e.currentTarget) document.getElementById("detailOverlay").classList.remove("open");
+});
+
+// Filters
+document.getElementById("filterGroup").addEventListener("click", e => {
+  if (!e.target.classList.contains("filter-btn")) return;
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  e.target.classList.add("active");
+  currentFilter = e.target.dataset.cat;
+  renderTable();
+});
+
+// Search
+document.getElementById("searchInput").addEventListener("input", e => {
+  searchTerm = e.target.value;
+  renderTable();
+});
+
+// Sort
+document.querySelectorAll("th[data-sort]").forEach(th => {
+  th.addEventListener("click", () => {
+    const col = th.dataset.sort;
+    if (currentSort.col === col) currentSort.dir *= -1;
+    else { currentSort.col = col; currentSort.dir = 1; }
+    renderTable();
+  });
+});
+
+// Tabs
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById(btn.dataset.tab).classList.add("active");
+  });
+});
+
+// Nav active
+const sections = document.querySelectorAll("section[id]");
+const navLinks = document.querySelectorAll("nav .nav-links a");
+window.addEventListener("scroll", () => {
+  let current = "";
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle("active", a.getAttribute("href") === "#" + current);
+  });
+});
+
+// Init
+renderTable();
+
+// Render math
+document.addEventListener("DOMContentLoaded", () => {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ]
+  });
+});
+</script>
+</body>
+</html>
