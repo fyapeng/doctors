@@ -29,7 +29,7 @@ This project builds an interactive webpage based on the review article by Currie
 
 ## 🚀 在线访问 | Live Demo
 
-👉 **[点击访问网页](https://你的用户名.github.io/仓库名/)**
+👉 **[点击访问网页](https://fyapeng.com/doctors/)**
 
 ---
 
