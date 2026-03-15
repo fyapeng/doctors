@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>医生决策：文献综述</title>
+<title>经济（学）的医生决策</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Source+Code+Pro:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
@@ -1163,7 +1163,65 @@ const papers = [
   {author:"Lyons et al.", year:2023, topic:"脓毒症 AI 工具在 9 家联网医院的表现变异", context:"9 家联网医院数据", finding:"AI 工具在治疗病情较轻、脓毒症基础概率较低的医院表现更好。在高复杂度医院表现差。", cats:["tech"], method:"多中心外部验证", journal:"JAMA Internal Medicine", src:"附录T8"},
   {author:"McCullough et al.", year:2010, topic:"HIT 对美国医院质量的影响", context:"AHA 调查 + 医院质量指标 2004-2007", finding:"在众多质量指标中仅有两项受到 HIT 采用影响。学术医院与非学术医院之间采用-质量关系更强。", cats:["tech"], method:"OLS + 医院/年固定效应", journal:"Health Affairs", src:"附录T8"},
   {author:"Manz et al.", year:2023, topic:"机器学习驱动的临终对话提示", context:"大型学术医疗中心肿瘤科 RCT", finding:"ML 提示增加了临终对话和减少终末期全身治疗，但对临终关怀、住院时间或 ICU 入住无影响。", cats:["tech","info"], method:"随机对照试验", journal:"JAMA Oncology", src:"附录T8"},
+
+  // ═══ 正文讨论但未单独列入附录的重要文献 ═══
+  {author:"Chandra & Staiger", year:2007, topic:"医疗中的生产率溢出效应", context:"心脏病治疗地区数据", finding:"区域治疗强度差异反映操作技能的内生积累：高密集治疗地区的医生在该手术上更熟练，形成正反馈。首次将技能纳入地区差异解释。", cats:["style","skill"], method:"结构模型 + 地区变异", journal:"Journal of Political Economy", src:"正文"},
+  {author:"Chandra & Skinner", year:2012, topic:"医疗技术增长与支出增长", context:"理论与综述", finding:"大量医疗支出可能被误导或浪费。在投入与产出关系存在噪声的职业中，仅靠调整支付不太可能引出社会最优表现。", cats:["incentive"], method:"理论+综述", journal:"Journal of Economic Literature", src:"正文"},
+  {author:"Rambachan", year:2024, topic:"在观察数据中识别预测错误", context:"理论+应用", finding:"扩展了 Chan et al. (2022) 的诊断技能识别框架，提供了更一般性条件下的识别结果。", cats:["skill","tech"], method:"理论+经验方法", journal:"QJE", src:"正文"},
+  {author:"Card, Fenizia & Silver", year:2023, topic:"医院分娩实践的健康影响", context:"美国医院分娩数据", finding:"剖宫产率存在显著的医院间差异。高剖宫产率使住院时间更短、即时新生儿结局更好，但未来呼吸疾病入院增加。选择率涉及权衡。", cats:["style","heuristic"], method:"医院固定效应 + 选择权衡分析", journal:"AEJ: Economic Policy", src:"正文"},
+  {author:"Bisgaier & Rhodes", year:2011, topic:"公共保险儿童的专科就医可及性审计", context:"电话审计实验", finding:"Medicaid 患者被拒绝专科预约的概率是私保患者的 6 倍，获得预约后还需多等 3 周。就诊可及性弹性 2.65。", cats:["incentive","equity"], method:"审计实验", journal:"NEJM", src:"正文"},
+  {author:"Cabral, Carey & Miller", year:2021, topic:"提供者支付对低收入人群医疗利用的影响", context:"Medicare 支付改革数据", finding:"Medicare 提高提供者支付后，目标服务增加 6.3%，服务对支付的弹性为 1.2。", cats:["incentive"], method:"Medicare 支付改革准实验", journal:"NBER WP", src:"正文"},
+  {author:"Alexander & Currie", year:2017, topic:"公保vs私保儿童住院差异是否重要", context:"儿童呼吸问题住院数据", finding:"私保儿童更可能被收治入院。当流感高峰期床位紧张时，公保与私保的差距扩大。", cats:["incentive","equity"], method:"流感季节变异", journal:"Economics and Human Biology", src:"正文"},
+  {author:"Shapiro", year:2018, topic:"信息冲击、非适应症处方与医药代表效应", context:"Seroquel 抗精神病药数据", finding:"临床试验显示 Seroquel 副作用更少，但仅在有医药代表拜访时才影响处方行为。医药代表传递了试验信息，使处方小幅转向 Seroquel 且更多在适应症范围内。", cats:["incentive","info"], method:"临床试验时间+医药代表拜访变异", journal:"Management Science", src:"正文"},
+  {author:"Newham & Valente", year:2024, topic:"药企支付如何影响处方和药物费用", context:"意大利糖尿病药物处方数据", finding:"药企支付增加了品牌药而非仿制药的处方，提高了费用。", cats:["incentive"], method:"医生-药物固定效应", journal:"Journal of Health Economics", src:"正文"},
+  {author:"Frakes", year:2013, topic:"医疗责任标准对地区实践差异的影响", context:"美国各州从州标准转向国家标准", finding:"转向国家标准后，各州剖宫产率趋向全国平均水平。对婴儿健康无影响。说明医疗事故法影响实践模式。", cats:["incentive","heuristic"], method:"各州法律变化 DID", journal:"American Economic Review", src:"正文"},
+  {author:"Mello et al.", year:2020, topic:"医疗事故责任与医疗质量综述", context:"文献综述", finding:"虽然部分研究发现非零效应，但医疗事故法改革对医生行为的影响通常很小。事故制度可能抑制了对诊断错误的报告和学习。", cats:["incentive"], method:"文献综述", journal:"JAMA", src:"正文"},
+  {author:"Currie & MacLeod", year:2008, topic:"侵权改革与出生结局", context:"美国各州侵权法变化 + 出生数据", finding:"不同类型的侵权法改革效果方向相反：限制赔偿可能鼓励鲁莽行为，而按过错比例承担责任则有正面效果。效果取决于医生基线行为。", cats:["incentive"], method:"各州法律变化 DID", journal:"QJE", src:"正文"},
+  {author:"Currie & Schwandt", year:2021, topic:"阿片类药物流行并非经济困境所致", context:"美国阿片流行数据综述", finding:"黑人最初被保护免受阿片类药物过度处方，因为医生更不愿为黑人患者开止痛药。流行最初集中在白人群体中。", cats:["equity","info"], method:"综述", journal:"ANNALS of AAPSS", src:"正文"},
+  {author:"Alsan & Wanamaker", year:2018, topic:"Tuskegee 实验与黑人男性健康", context:"美国健康调查 + 历史数据", finding:"Tuskegee 梅毒实验产生了持续至今的对医疗体系不信任的遗产。生活在更接近 Tuskegee 地区的黑人男性对医疗系统信任度更低。", cats:["equity"], method:"DID + 地理距离变异", journal:"QJE", src:"正文"},
+  {author:"Vela et al.", year:2022, topic:"消除医疗中显性和隐性偏见：证据与研究需求", context:"文献综述", finding:"大多数反偏见培训干预效果为零或极短暂。可能因为反偏见信息与医学培训其他方面的信息相矛盾。与历史边缘化群体的积极互动可能更有效。", cats:["equity","info"], method:"文献综述", journal:"Annual Review of Public Health", src:"正文"},
+  {author:"Williams, Lawrence & Davis", year:2019, topic:"种族主义与健康：证据与研究需求", context:"文献综述", finding:"虽然偏见是医疗差异的重要来源，但很少有证据表明针对偏见的干预措施已改善了健康。", cats:["equity"], method:"文献综述", journal:"Annual Review of Public Health", src:"正文"},
+  {author:"Sobczak et al.", year:2023, topic:"Doula 对母婴结局的影响", context:"范围综述", finding:"Doula 陪伴与更好的母婴结局相关。由于少数族裔在护理等辅助专业中代表性更高，利用这些专业人员可能改善医患沟通和健康公平。", cats:["equity"], method:"范围综述", journal:"Cureus", src:"正文"},
+  {author:"Einav et al.", year:2020, topic:"乳腺 X 光筛查中的筛选与选择", context:"大型保险数据", finding:"自愿筛查的依从者更健康、社会经济地位更高。与 Kowalski (2023) 类似的正向选择现象。", cats:["tech","heuristic"], method:"保险理赔数据分析", journal:"American Economic Review", src:"正文"},
+  {author:"Gibbons et al.", year:2007, topic:"监管机构自杀警告对 SSRI 处方的早期影响", context:"美国和挪威处方数据", finding:"FDA 黑框警告导致 SSRI 对儿童和青少年的处方急剧下降，并整体减少了 SSRI 处方。", cats:["info"], method:"中断时间序列", journal:"American Journal of Psychiatry", src:"正文"},
+  {author:"DeCicca, Isabelle & Malak", year:2024, topic:"医生如何回应新的医学研究", context:"加拿大出生数据 + 臀位分娩 RCT", finding:"RCT 显示臀位剖宫产不必要后，医生迅速减少了臀位剖宫产，尽管同期总剖宫产率在快速上升。", cats:["info"], method:"RCT 发表前后时间变异", journal:"Health Economics", src:"正文"},
+  {author:"Ahomäki et al.", year:2020, topic:"针对医生的阿片处方预警信函", context:"芬兰高量处方者实验", finding:"向处方大量对乙酰氨基酚-可待因的医生发送警告信后，新患者处方量减少 12.8%。信函可能携带隐性制裁威胁。", cats:["info"], method:"随机对照试验", journal:"Journal of Health Economics", src:"正文"},
+  {author:"Cuddy & Currie", year:2020, topic:"美国青少年精神疾病治疗的地区与个体差异", context:"美国青少年医保理赔数据", finding:"精神疾病治疗在地区间和地区内都存在巨大差异。指南违反行为普遍存在。", cats:["heuristic"], method:"描述性分析", journal:"PNAS", src:"正文"},
+  {author:"Arnold, Dobbie & Hull", year:2022, topic:"衡量保释决策中的种族歧视", context:"美国法官保释决策数据", finding:"引入分层边际处理效应模型识别法官决策技能和阈值。与医生决策识别框架在方法论上一脉相承。", cats:["skill"], method:"分层 MTE 模型", journal:"American Economic Review", src:"正文"},
+  {author:"Stevenson & Doleac", year:2024, topic:"算法风险评估在人类手中的效果", context:"美国刑事司法算法部署数据", finding:"法官使用算法后改变了量刑，但既未减少监禁也未改善公共安全。法官偏离算法建议的方式增加了监禁但也减少了再犯。与医疗 AI 困境类似。", cats:["tech"], method:"算法部署前后比较", journal:"AEJ: Economic Policy", src:"正文"},
+  {author:"Hoffman, Kahn & Li", year:2018, topic:"招聘中的自由裁量权", context:"企业招聘数据", finding:"推翻算法推荐的经理平均招到更差的人。与 Agarwal et al. (2023) 类似，人类常常错误地偏离算法建议。", cats:["tech"], method:"算法引入前后比较", journal:"QJE", src:"正文"},
+  {author:"Ludwig, Mullainathan & Rambachan", year:2024, topic:"算法的'不合理有效性'", context:"理论讨论", finding:"论证 Mullainathan & Obermeyer (2022) 的心脏病筛查算法如果被广泛采用将带来巨大社会收益，相当于'免费午餐'。", cats:["tech"], method:"理论讨论", journal:"AEA P&P", src:"正文"},
+  {author:"Obermeyer et al.", year:2019, topic:"健康管理算法中的种族偏见（详细）", context:"大型保险公司风险预测算法", finding:"以医疗支出为代理变量的算法系统性低估黑人患者需求。但论文指出纠正算法偏差可能比纠正人类偏差更容易。", cats:["tech","equity"], method:"算法审计", journal:"Science", src:"正文"},
+  {author:"Rambachan & Roth", year:2020, topic:"偏差输入，偏差输出？评估常识判断", context:"理论研究", finding:"即使知道基础数据偏差的方向，算法偏差可以是任何方向。选择学习大数据集需要理解样本选择机制并在不同环境中测试。", cats:["tech"], method:"理论证明", journal:"arXiv Preprint", src:"正文"},
+  {author:"Feng et al.", year:2025, topic:"用算法替代人类决策者的统计检验", context:"理论+医疗应用", finding:"提出机器学习在医生决策中的显式应用框架，包括如何估计 ROC 曲线和何时算法应取代人类。", cats:["tech","skill"], method:"理论+应用", journal:"Management Science", src:"正文"},
+  {author:"Wilson & Khansa", year:2018, topic:"美英电子病历系统迁移比较", context:"美英 EHR 政策比较", finding:"美国和英国都在实施统一可互操作的电子病历系统方面遇到困难。系统不兼容限制了 EHR 减少护理碎片化的能力。", cats:["tech"], method:"政策比较", journal:"Health Policy", src:"正文"},
+  {author:"Singh et al.", year:2013, topic:"电子病历中的信息过载与漏诊检查结果", context:"VA 初级保健医生调查", finding:"90% 的医生认为收到的警报过多。超过一半认为信息洪流增加了遗漏重要数据的概率。", cats:["tech"], method:"调查研究", journal:"JAMA Internal Medicine", src:"正文"},
+  {author:"Main et al.", year:2020, topic:"大规模质量改进合作中减少产科出血种族差异", context:"加州孕产妇质量合作 2006-2016", finding:"通过识别高风险医院并针对性地培训（如出血急救车），加州孕产妇死亡率下降 65%，同期全美继续上升。", cats:["tech","equity"], method:"质量改进项目评估", journal:"Am J Obstet Gynecol", src:"正文"},
+  {author:"Athey & Imbens", year:2019, topic:"经济学家应了解的机器学习方法", context:"方法论综述", finding:"综述了机器学习在经济学中的应用。强调选择问题——如果不纳入分配机制，ML 预测的治疗效果可能不正确。", cats:["tech"], method:"方法论综述", journal:"Annual Review of Economics", src:"正文"},
+  {author:"Chyn, Frandsen & Leslie", year:2025, topic:"经济学中的检查员和法官设计实践指南", context:"方法论综述", finding:"系统综述了利用随机分配进行因果识别的文献，讨论了即使有随机化也可能出现偏差的情况及应对技术。", cats:["skill"], method:"方法论综述", journal:"Journal of Economic Literature", src:"正文"},
+  {author:"Kahneman & Klein", year:2009, topic:"直觉专业知识的条件：分歧的失败", context:"心理学理论", finding:"在高有效性环境（如消防）中可发展出卓越直觉技能，但在低有效性环境中直觉不可靠。医学介于两者之间——算法和专家各有优势。", cats:["skill","heuristic"], method:"理论讨论", journal:"American Psychologist", src:"正文"},
+  {author:"Dawes, Faust & Meehl", year:1989, topic:"临床判断 vs 精算判断", context:"心理学经典研究", finding:"在涉及大量数值信息的决策中，即使简单线性模型也能优于人类专家。医疗决策领域的经典先驱研究。", cats:["skill","tech"], method:"元分析", journal:"Science", src:"正文"},
+  {author:"Shurtz, Goldstein & Chodick", year:2024, topic:"低概率临床风险实现与医生行为", context:"以色列初级保健结肠镜筛查数据", finding:"患者意外确诊结肠癌后，医生提高了适当筛查率——但仅持续三个月。说明个体经验驱动的行为改变不持久。", cats:["heuristic"], method:"事件研究", journal:"AJHE", src:"正文"},
+  {author:"Abaluck et al.", year:2021, topic:"用指南修正错配：知晓 vs 遵从", context:"房颤患者电子病历", finding:"医生向新抗凝指南趋近但合规高度不完美。严格遵循可多预防 24% 中风。偏离非由异质性治疗效果证成。", cats:["heuristic","info"], method:"文本挖掘知晓度 + RCT 数据验证", journal:"NBER WP", src:"正文"},
 ];
+
+// Deduplicate: keep the entry with longer finding text
+const seen = new Map();
+const uniquePapers = [];
+papers.forEach(p => {
+  const key = p.author + '|' + p.year;
+  if (seen.has(key)) {
+    const prev = seen.get(key);
+    if (p.finding.length > prev.finding.length) {
+      uniquePapers[uniquePapers.indexOf(prev)] = p;
+      seen.set(key, p);
+    }
+  } else {
+    seen.set(key, p);
+    uniquePapers.push(p);
+  }
+});
+const dedupedPapers = uniquePapers;
 
 const catLabels = {
   style:"实践风格", skill:"技能/培训", equity:"健康公平", incentive:"财务激励",
@@ -1183,7 +1241,7 @@ let searchTerm = "";
 let filteredCache = [];
 
 function getFiltered() {
-  let filtered = papers.filter(p => {
+  let filtered = dedupedPapers.filter(p => {
     if (currentFilter !== "all" && !p.cats.includes(currentFilter)) return false;
     if (searchTerm) {
       const s = searchTerm.toLowerCase();
@@ -1207,11 +1265,11 @@ function renderTable() {
   const start = (currentPage - 1) * PAGE_SIZE;
   const pageData = filteredCache.slice(start, start + PAGE_SIZE);
 
-  document.getElementById("litCount").textContent = `共 ${filteredCache.length} 篇（第 ${currentPage}/${totalPages} 页） · 总收录 ${papers.length} 篇`;
+  document.getElementById("litCount").textContent = `共 ${filteredCache.length} 篇（第 ${currentPage}/${totalPages} 页） · 总收录 ${dedupedPapers.length} 篇`;
 
   const tbody = document.getElementById("litBody");
   tbody.innerHTML = pageData.map((p) => {
-    const idx = papers.indexOf(p);
+    const idx = dedupedPapers.indexOf(p);
     const srcBadge = p.src && p.src !== "正文" ? `<span class="tag" style="background:rgba(201,165,92,0.1);color:var(--accent);font-size:0.65rem;">${p.src}</span>` : '';
     return `<tr data-idx="${idx}" style="cursor:pointer">
       <td>${p.author} ${srcBadge}</td>
@@ -1257,7 +1315,7 @@ function renderPagination(totalPages) {
 }
 
 function showDetail(idx) {
-  const p = papers[idx];
+  const p = dedupedPapers[idx];
   const overlay = document.getElementById("detailOverlay");
   const srcInfo = p.src ? `<span style="color:var(--text-muted);font-size:0.75rem;margin-left:0.5rem;">[${p.src}]</span>` : '';
   document.getElementById("detailContent").innerHTML = `
