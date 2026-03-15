@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>医生决策研究文献综述</title>
+<title>医生决策与患者结局 — 研究文献综述</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Source+Code+Pro:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
@@ -261,10 +261,42 @@ nav .nav-links a:hover, nav .nav-links a.active {
 
 .lit-table-wrap {
   overflow-x: auto;
+  max-height: 680px;
+  overflow-y: auto;
   border: 1px solid var(--border);
   border-radius: 12px;
   background: var(--bg-card);
 }
+
+/* ─── PAGINATION ─── */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 1.2rem;
+  flex-wrap: wrap;
+}
+.pg-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.75rem;
+  color: var(--text-dim);
+  font-size: 0.82rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pg-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.pg-btn:disabled { opacity: 0.35; cursor: default; }
+.pg-btn.pg-active {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+.pg-dots { color: var(--text-muted); font-size: 0.8rem; padding: 0 0.3rem; }
 table.lit-table {
   width: 100%; border-collapse: collapse;
   font-size: 0.85rem;
@@ -806,6 +838,7 @@ table.lit-table td:first-child { color: var(--text); font-weight: 500; }
       <tbody id="litBody"></tbody>
     </table>
   </div>
+  <div class="pagination" id="pagination"></div>
 </section>
 
 <!-- TIMELINE -->
@@ -1064,7 +1097,72 @@ const papers = [
   {author:"Agha", year:2014, topic:"电子病历对医疗费用和质量的影响", context:"Medicare 个人数据 + 医院固定效应", finding:"采用电子病历使支出增加 1.3%，但对住院时间、质量、再入院或死亡率无影响。", cats:["tech"], method:"医院固定效应", journal:"Journal of Health Economics"},
   {author:"Miller & Tucker", year:2011, topic:"电子病历能否拯救婴儿", context:"县级出生结局数据 1995-2006", finding:"采用率增加 10% 使新生儿死亡率下降 3%。归因于早产和分娩并发症减少。", cats:["tech"], method:"IV：州医疗隐私法", journal:"Journal of Political Economy"},
   {author:"Alpert, Dykstra & Jacobson", year:2024, topic:"处方监控程序：麻烦成本 vs 信息", context:"必须查询型处方监控数据", finding:"必须查询制度影响所有类型患者（非仅已有处方者），暗示'麻烦成本'而非信息是主要机制。", cats:["tech","info"], method:"政策变异 DID", journal:"AEJ: Economic Policy"},
-  {author:"Mullainathan & Obermeyer", year:2022, topic:"机器学习诊断医生决策错误", context:"心脏病 ED 数据", finding:"医生系统性地错配治疗：过度重视少数突出特征而忽略细微指标。决策错误影响存活。", cats:["tech","skill"], method:"机器学习（GBDT+LASSO）vs 医生决策", journal:"QJE"},
+  {author:"Mullainathan & Obermeyer", year:2022, topic:"机器学习诊断医生决策错误", context:"心脏病 ED 数据", finding:"医生系统性地错配治疗：过度重视少数突出特征而忽略细微指标。决策错误影响存活。", cats:["tech","skill"], method:"机器学习（GBDT+LASSO）vs 医生决策", journal:"QJE", src:"正文"},
+
+  // ═══ 附录 Table 1: Health Disparities ═══
+  {author:"Angerer, Waibel & Stummer", year:2019, topic:"社会经济地位与就医可及性歧视", context:"奥地利 1249 名专科医生，对照实验", finding:"有博士/医学学位签名的患者获得更快回复和更短候诊时间。效果受社会保险类型驱动。", cats:["equity"], method:"对照函实验", journal:"AJHE", src:"附录T1"},
+  {author:"Button et al.", year:2020, topic:"性别认同/种族与心理健康就医歧视", context:"向 1000 名心理健康提供者发送实验邮件", finding:"跨性别/非二元非裔和西裔获得积极回复的概率比顺性别白人低 18.7%。白人患者无性别认同差异。", cats:["equity"], method:"多波次对照实验", journal:"NBER WP", src:"附录T1"},
+  {author:"Chandra & Staiger", year:2010, topic:"识别医疗中的供给者偏见", context:"Medicare 患者样本", finding:"女性和少数族裔接受更少治疗，但条件治疗效果也更低。治疗更少不等于歧视，但不分个体地降低治疗强度是有问题的。", cats:["equity"], method:"倾向得分估计+OLS", journal:"NBER WP", src:"附录T1"},
+  {author:"Eli, Logan & Miloucheva", year:2019, topic:"美国内战退伍军人的医生偏见与种族差异", context:"联邦军退伍军人养老金记录", finding:"相同医生审查委员会对有相似病历的黑人退伍军人推荐养老金的概率远低于白人。较低的养老金预测更低的预期寿命。", cats:["equity"], method:"IV：使用退伍军人养老金收入", journal:"NBER WP", src:"附录T1"},
+  {author:"Greenwood et al.", year:2020, topic:"种族一致性与新生儿出生死亡率差异", context:"佛罗里达住院数据 1992-2015", finding:"种族一致使黑白新生儿死亡率差距减少约 40%。效果在黑人婴儿和更复杂病例中更大。", cats:["equity"], method:"OLS + 医生固定效应", journal:"PNAS", src:"附录T1"},
+  {author:"McDevitt & Roberts", year:2014, topic:"女性泌尿科医生与膀胱癌死亡率", context:"美国医疗信息数据", finding:"一个县仅需有一名女性泌尿科医生就与更少的女性膀胱癌死亡相关。", cats:["equity"], method:"描述性+结构模型", journal:"RAND JE", src:"附录T1"},
+  {author:"Sabin & Greenwald", year:2012, topic:"隐性偏见与儿科治疗建议", context:"86 名学术儿科医生调查+案例", finding:"隐性偏见测试得分更高的医生更不愿为黑人骨手术后疼痛儿童开具适当的羟考酮。", cats:["equity"], method:"在线调查+隐性联想测试(IAT)", journal:"AJPH", src:"附录T1"},
+  {author:"Wallis et al.", year:2022, topic:"外科医生-患者性别一致性与术后结局", context:"安大略省健康保险数据", finding:"性别不一致与术后死亡率升高相关（调整OR=1.07）。效果在心胸外科更大。", cats:["equity"], method:"基于人群的回顾性队列研究", journal:"JAMA Surgery", src:"附录T1"},
+  {author:"Sommers et al.", year:2017, topic:"ACA 之后美国医疗质量的残余差异", context:"全国调查数据", finding:"仅一小部分种族差异可由黑人患者缺乏保险覆盖来解释。消除经济差距不太可能消除治疗差异。", cats:["equity"], method:"描述性调查分析", journal:"Milbank Quarterly", src:"附录T1"},
+  {author:"Brekke et al.", year:2018, topic:"社会经济地位与 GP 治疗决策", context:"挪威行政数据 2008-2012", finding:"即使报销相同，高学历患者获得更长（但更少）的就诊，低学历患者获得更多就诊和服务（如糖尿病筛查）。", cats:["equity","incentive"], method:"GP 固定效应模型", journal:"Health Economics", src:"附录T1"},
+
+  // ═══ 附录 Table 2: Skill, Experience, Training ═══
+  {author:"Van Parys", year:2016, topic:"ED 医生实践风格的变异与经验", context:"佛罗里达 ED 轻伤数据 2005-2011", finding:"经验不足 2 年的医生花费多 4.6%，手术多 3.46%。7年以上高成本医生 3% 更不可能留在 ED。", cats:["skill"], method:"OLS + 医生-患者条件匹配", journal:"PLoS ONE", src:"附录T2"},
+  {author:"Simeonova, Skipper & Thingholm", year:2024, topic:"初级保健医生的健康管理技能", context:"丹麦注册数据", finding:"健康管理技能指标（用药依从性等）随医生年龄衰退而非提高。诊所关闭或搬迁引发的换医生事件显示技能可转移。", cats:["skill"], method:"Leave-one-out 依从率 + 事件研究", journal:"Journal of Human Resources", src:"附录T2"},
+  {author:"Doyle", year:2020, topic:"医生特征与患者存活", context:"Medicare 索赔 + 医生特征", finding:"有心脏科医生值班时，ED 心力衰竭患者结局更好。额外心脏科医生使 1 年死亡率下降 1.10%。", cats:["skill"], method:"控制医院/季度/星期效应 + 医生数量", journal:"NBER WP", src:"附录T2"},
+
+  // ═══ 附录 Table 3: Time Pressure and Fatigue ═══
+  {author:"Chu et al.", year:2024, topic:"认知负荷、疲劳与医生决策", context:"UCSF ED 高频电子病历数据 2017-2019", finding:"高认知负荷时，医生减少笔记编辑 7-14%，增加诊断检查 2-5%，用检查替代自身时间和注意力。每增加 1SD 认知负荷，入院概率增加 3.4%。", cats:["time"], method:"认知负荷代理变量 + 医生固定效应", journal:"Working Paper", src:"附录T3"},
+  {author:"Linder et al.", year:2014, topic:"班次时间与抗生素处方", context:"23 个初级保健 Partners HealthCare 门诊 EMR 2011-2012", finding:"与班次第一个小时相比，第 2、3、4 小时的不当抗生素处方 OR 分别为 1.01、1.14、1.26。44.46% 的样本被处方抗生素。", cats:["time"], method:"Logistic 回归", journal:"JAMA IM", src:"附录T3"},
+  {author:"Neprash et al.", year:2023, topic:"初级保健就诊时长与不当处方", context:"AthenaHealth 索赔和 EHR 数据 2017", finding:"每增加 1 分钟就诊时长，不当抗生素处方减少 0.11pp，不当阿片处方减少 0.2%，不当苯二氮卓处方减少 0.01pp。", cats:["time"], method:"描述性；线性概率模型 + 医生/患者协变量", journal:"JAMA HF", src:"附录T3"},
+  {author:"Shurtz, Goldstein & Chodick (RAND 2022)", year:2022, topic:"初级保健中时间压力与治疗强度", context:"以色列最大 HMO 行政数据", finding:"每增加 1 分钟就诊时长，诊断投入增加 4.5%，转诊增加 7.93%。对老年患者（>60 岁）和高预测利用患者效果更大。", cats:["time"], method:"事件研究：就诊时长 IV 为缺勤医生引起的日程变化", journal:"RAND", src:"附录T3"},
+  {author:"Tai-Seale & McGuire", year:2012, topic:"初级保健就诊中时间的影子价格", context:"385 次录像就诊 1998-2000", finding:"第一组 5 分钟的话题是参考组。后续话题被作为最后话题处理的概率逐渐上升：第 5-10 分钟增加 16.8pp，第 10-15 分钟增加 26.8pp。", cats:["time"], method:"话题级 Logit 分析", journal:"Health Economics", src:"附录T3"},
+
+  // ═══ 附录 Table 4: Peer Effects ═══
+  {author:"Agha & Zeltzer", year:2022, topic:"药企支付通过同行网络的扩散效应", context:"Medicare Part D + Open Payments 2014-2018", finding:"未直接收到支付但与收到支付的医生共享患者的医生，处方增加占总效应的 1/4。共享患者越多效果越大。", cats:["peer","incentive"], method:"事件研究 + 医生-药物固定效应", journal:"AEJ: Economic Policy", src:"附录T4"},
+  {author:"Chan (AEJ:EP 2021)", year:2021, topic:"住院医团队中的影响与信息", context:"大型教学医院 5 年住院医数据", finding:"低年级住院医晋升后行为变异急剧增加。高年级对组内变异贡献跳跃式上升。住院医持续经验积累但仅在获得自主权时才改变行为。", cats:["peer","skill"], method:"RE 模型利用晋升引起的断点", journal:"AEJ: Economic Policy", src:"附录T4"},
+
+  // ═══ 附录 Table 5: Financial Incentives ═══
+  {author:"Allen, Fichera & Sutton", year:2016, topic:"英国支付增加对手术的影响", context:"NHS 英格兰医院事件统计 2007-2011", finding:"门诊手术增加 27%，从腹腔镜到开腹手术回退。门诊费用弹性 w.r.t. 支付：1.21。", cats:["incentive"], method:"DID + 控制手术推荐率", journal:"Health Economics", src:"附录T5"},
+  {author:"Chen & Lakdawalla", year:2019, topic:"患者收入对医生供给反应的影响", context:"Medicare 1993-2002 + 1997 报销区合并", finding:"报销增加 10% 使每人服务价格弹性 0.051。医生反应占高低收入患者服务差距增幅的 53%。", cats:["incentive","equity"], method:"2SLS：报销区合并 + Medicare 地区间/1999 年变化", journal:"Journal of Health Economics", src:"附录T5"},
+  {author:"Clemens & Gottlieb", year:2014, topic:"Medicare 报销率与治疗决策（详细弹性）", context:"Medicare Part B 1993-2005", finding:"报销率提高使选择性手术和 RVU 增加。AMI 住院率增加但 4 年死亡率无变化。短期弹性 -0.82，长期 1.46。", cats:["incentive"], method:"1997 报销区合并自然实验 + 邻近县匹配", journal:"American Economic Review", src:"附录T5"},
+  {author:"Coudin, Pla & Samson", year:2015, topic:"法国价格管制下 GP 的反应", context:"法国行政数据 2005-2008", finding:"价格管制使手术数量增加 80% 以上。医生增加数量以弥补收入损失。", cats:["incentive"], method:"Fuzzy RD + 价格管制规则变异", journal:"Health Economics", src:"附录T5"},
+  {author:"Dickstein (WP 2017)", year:2017, topic:"封顶支付 vs 非封顶支付中的抗抑郁药处方", context:"MarketScan 2003-2005 商业保险", finding:"封顶支付计划中的处方者更可能选择仿制药，药物依从性更高但转药率也更高。", cats:["incentive"], method:"结构模型：用保险计划内总药价变异作为 IV", journal:"Working Paper", src:"附录T5"},
+  {author:"Ding & Liu", year:2021, topic:"封顶支付与腰痛治疗决策", context:"MarketScan 商保理赔 2003-2006", finding:"封顶支付使资源使用（特别是物理治疗和诊断检查）减少 12.2%，结局无变化。", cats:["incentive"], method:"计划历史固定效应 + 医生固定效应", journal:"Journal of Health Economics", src:"附录T5"},
+  {author:"Fortin et al.", year:2021, topic:"FFS vs 按人头+按日计酬合同比较", context:"魁北克医生时间使用调查 1996-2002", finding:"时间花费变化小，但按日计酬下服务减少 5-12%。女性和年轻医生更可能转向按日计酬。", cats:["incentive"], method:"结构离散选择模型 + 混合报酬改革", journal:"JAE", src:"附录T5"},
+  {author:"Gupta", year:2021, topic:"医院再入院减少计划(HRRP)的影响", context:"Medicare FFS 2006-2012", finding:"HRRP 使再入院率降低占观察到减少的 2/3，1 年死亡率降低 8.87%。通过增加初次住院治疗强度实现。", cats:["incentive"], method:"DID：利用基线再入院率预测惩罚", journal:"American Economic Review", src:"附录T5"},
+  {author:"Wilding et al.", year:2022, topic:"财务激励目标严格度与 GP 反应", context:"英国临床研究数据 2010-2017", finding:"更严格的高血压目标增加了降压药处方，但医生也游戏：反复测量、申请豁免、四舍五入报告。", cats:["incentive"], method:"DID + 比较目标变化前后", journal:"Journal of Health Economics", src:"附录T5"},
+  {author:"Chernew et al.", year:2021, topic:"纵向整合医生与住院 MRI 消费", context:"2013 商保+大型保险公司数据", finding:"转诊医生固定效应解释了 52% 的下肢 MRI 价格变异。纵向整合医生使住院 MRI 增加而非替代。", cats:["incentive"], method:"限制无对比增强同质 MRI + 转诊医生固定效应", journal:"Journal of Health Economics", src:"附录T5"},
+  {author:"Clemens et al.", year:2024, topic:"商保中的医生实践偏好", context:"Health Care Cost Institute 商保 + Cutler et al. (2019) 数据", finding:"医生偏好对商保实践模式的影响小于对 Medicare 的影响。假设反映私保中更大的价格变异。", cats:["incentive","style"], method:"描述性分析 + 追踪 Cutler et al. (2019) 同批医生", journal:"NBER WP", src:"附录T5"},
+
+  // ═══ 附录 Table 6: Information ═══
+  {author:"Avdic et al.", year:2024, topic:"医生对药物支架新信息的不对称反应", context:"瑞典冠脉介入数据", finding:"医生缓慢采用药物支架（正面信息），但快速放弃（负面安全信息出来后）。对新信息反应不对称。", cats:["info"], method:"事件研究 + 正/负信息分离", journal:"Journal of Health Economics", src:"附录T6"},
+  {author:"Bradford & Klein", year:2015, topic:"COX-2 抑制剂黑框警告的影响", context:"EMR + 初级保健研究网络数据", finding:"黑框警告使 COX-2 处方减少 54.9%，但被 non-COX-2 NSAIDs 增加 2.8pp 和阿片增加处方部分替代。", cats:["info"], method:"Probit 模型：处方中有活跃非适应症 COX-2 禁忌的概率", journal:"Health Economics", src:"附录T6"},
+  {author:"Dubois & Tunçel", year:2021, topic:"科学信息和建议对医生处方的影响", context:"法国 Cegedim 纵向处方数据 386名GP", finding:"SSRI 处方和替代品均下降，但非适应症用其他精神药物增加。25% 的医生完全停止开 SSRI。变异在前后均存在。", cats:["info"], method:"DID + 随机系数离散选择 Logit", journal:"Journal of Health Economics", src:"附录T6"},
+  {author:"Olson & Yin", year:2021, topic:"FDA 标签变更对儿科处方的影响", context:"全美处方数据 + NAMC + FDA/PubMed", finding:"在首选规格中，边际标签变更效果使儿科处方减少 12.67%。", cats:["info"], method:"DID：定义 <18 岁为儿童 >35 为对照", journal:"Health Economics", src:"附录T6"},
+  {author:"Persson, Qiu & Rossin-Slater", year:2021, topic:"ADHD 边际诊断的家庭溢出效应", context:"瑞典人口登记 + 处方数据 1990-2016", finding:"因'年龄偏小'导致的额外 ADHD 诊断使兄弟姐妹的诊断概率增加 0.59pp (12.04%)，ADHD 药物索赔增加 0.55pp。", cats:["info","heuristic"], method:"出生日期断点 + 兄弟姐妹关联", journal:"NBER WP", src:"附录T6"},
+
+  // ═══ 附录 Table 7: Heuristics and Guidelines ═══
+  {author:"Singh", year:2021, topic:"分娩中的启发式决策", context:"两家学术医院产科 EHR 2000-2020", finding:"经历并发症后，医生切换分娩方式的概率增加 3.4%（阴道→剖宫产）或 3.6%（剖宫产→阴道），但效应仅持续很短时间。", cats:["heuristic"], method:"线性概率模型 + 时间/医生/医院固定效应", journal:"Science", src:"附录T7"},
+  {author:"Ly, Shekelle & Song", year:2023, topic:"医生决策中的锚定偏差", context:"VA EHR 数据 2011-2018", finding:"病历中提及充血性心衰使 ED 医生对肺栓塞的检测减少 4.6pp（34.8%），延迟检测 15.5 分钟。即使控制其他特征后依然显著。", cats:["heuristic"], method:"线性概率模型 + 时间/医生固定效应", journal:"JAMA Internal Medicine", src:"附录T7"},
+
+  // ═══ 附录 Table 8: Technology ═══
+  {author:"Agha", year:2014, topic:"HIT 对医疗费用和质量的影响（详细）", context:"20% Medicare 样本 + AHA 调查", finding:"HIT 采用使支出增加 1.3%。对住院时间无影响，对 1 年死亡率/再入院/治疗强度/质量指标均无效。", cats:["tech"], method:"OLS + 医院/年固定效应", journal:"Journal of Health Economics", src:"附录T8"},
+  {author:"Buchmueller & Carey", year:2018, topic:"处方监控程序对 Medicare 阿片利用的影响", context:"5% Medicare Part D 样本 2007-2013", finding:"无必须查询的 PDMP 对阿片利用无显著影响。必须查询 PDMP 使阿片处方减少，但不影响极端使用（如 doctor shopping）。", cats:["tech"], method:"DID：州级政策变异", journal:"AEJ: Economic Policy", src:"附录T8"},
+  {author:"Sacks et al.", year:2021, topic:"PDMP 政策能否影响成瘾物质初始使用", context:"大型保险公司阿片处方 2007-2018", finding:"必须查询 PDMP 使新阿片处方减少。但对极端使用如 doctor shopping 无显著影响。", cats:["tech"], method:"DID：州级政策变异", journal:"Journal of Health Economics", src:"附录T8"},
+  {author:"Neumark & Savych", year:2023, topic:"阿片相关政策对利用和残疾时长的影响", context:"工伤补偿索赔数据", finding:"必须查询 PDMP 减少了阿片利用，但效果因政策细节而异。对残疾时长效果有限。", cats:["tech"], method:"DID：多种州级政策变异", journal:"AJHE", src:"附录T8"},
+  {author:"Dahlstrand", year:2022, topic:"远程医疗能否缩小健康差距（详细）", context:"瑞典数字医疗平台数据 2016-2018", finding:"将高风险患者匹配最高技能医生可减少可避免住院 8%。城市内日/小时可实现类似匹配。", cats:["tech","equity"], method:"leave-one-out 医生技能估计 + 反事实模拟", journal:"CEP Discussion Paper", src:"附录T8"},
+  {author:"Goetz", year:2023, topic:"远程医疗平台竞争与技术采用", context:"加拿大心理治疗平台 + Facebook 范围数据", finding:"平台扩展显示区域外医生后，高技能医生停止提供折扣，低技能医生更可能退出平台。", cats:["tech"], method:"倾向得分匹配 DID + 平台变化", journal:"Int J Industrial Organization", src:"附录T8"},
+  {author:"Horwitz et al.", year:2025, topic:"需求证书法(CON)与影像使用", context:"20% Medicare FFS 2009-2014 + AHA 等", finding:"CON 法减少低价值 MRI 使用但不影响高价值 MRI。但同样减少了高价值 CT 扫描。", cats:["tech"], method:"RDD：州边界 + CON 法有无", journal:"Journal of Health Economics", src:"附录T8"},
+  {author:"Wong et al.", year:2021, topic:"EPIC 脓毒症 AI 工具的外部验证（详细）", context:"密歇根大学医院住院数据", finding:"该工具漏诊 67% 的脓毒症患者，同时对 18% 的所有患者产生假阳性警报。在病情较轻的医院表现稍好。", cats:["tech"], method:"外部验证：将厂商工具应用于独立数据", journal:"JAMA Internal Medicine", src:"附录T8"},
+  {author:"Lyons et al.", year:2023, topic:"脓毒症 AI 工具在 9 家联网医院的表现变异", context:"9 家联网医院数据", finding:"AI 工具在治疗病情较轻、脓毒症基础概率较低的医院表现更好。在高复杂度医院表现差。", cats:["tech"], method:"多中心外部验证", journal:"JAMA Internal Medicine", src:"附录T8"},
+  {author:"McCullough et al.", year:2010, topic:"HIT 对美国医院质量的影响", context:"AHA 调查 + 医院质量指标 2004-2007", finding:"在众多质量指标中仅有两项受到 HIT 采用影响。学术医院与非学术医院之间采用-质量关系更强。", cats:["tech"], method:"OLS + 医院/年固定效应", journal:"Health Affairs", src:"附录T8"},
+  {author:"Manz et al.", year:2023, topic:"机器学习驱动的临终对话提示", context:"大型学术医疗中心肿瘤科 RCT", finding:"ML 提示增加了临终对话和减少终末期全身治疗，但对临终关怀、住院时间或 ICU 入住无影响。", cats:["tech","info"], method:"随机对照试验", journal:"JAMA Oncology", src:"附录T8"},
 ];
 
 const catLabels = {
@@ -1076,52 +1174,95 @@ const catClass = {
   time:"tag-time", peer:"tag-peer", info:"tag-info", heuristic:"tag-heuristic", tech:"tag-tech"
 };
 
+// Pagination
+const PAGE_SIZE = 15;
+let currentPage = 1;
 let currentFilter = "all";
 let currentSort = {col: "year", dir: -1};
 let searchTerm = "";
+let filteredCache = [];
 
-function renderTable() {
+function getFiltered() {
   let filtered = papers.filter(p => {
     if (currentFilter !== "all" && !p.cats.includes(currentFilter)) return false;
     if (searchTerm) {
       const s = searchTerm.toLowerCase();
-      return (p.author+p.topic+p.finding+p.context+(p.cats.map(c=>catLabels[c]).join(" "))).toLowerCase().includes(s);
+      return (p.author+p.topic+p.finding+p.context+(p.cats.map(c=>catLabels[c]).join(" "))+(p.src||"")).toLowerCase().includes(s);
     }
     return true;
   });
-
   filtered.sort((a,b) => {
     const col = currentSort.col;
     let va = a[col], vb = b[col];
     if (col === "year") return (va - vb) * currentSort.dir;
     return String(va).localeCompare(String(vb)) * currentSort.dir;
   });
+  return filtered;
+}
 
-  document.getElementById("litCount").textContent = `显示 ${filtered.length} / ${papers.length} 篇`;
+function renderTable() {
+  filteredCache = getFiltered();
+  const totalPages = Math.max(1, Math.ceil(filteredCache.length / PAGE_SIZE));
+  if (currentPage > totalPages) currentPage = totalPages;
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const pageData = filteredCache.slice(start, start + PAGE_SIZE);
+
+  document.getElementById("litCount").textContent = `共 ${filteredCache.length} 篇（第 ${currentPage}/${totalPages} 页） · 总收录 ${papers.length} 篇`;
 
   const tbody = document.getElementById("litBody");
-  tbody.innerHTML = filtered.map((p, i) => `
-    <tr data-idx="${papers.indexOf(p)}" style="cursor:pointer">
-      <td>${p.author}</td>
+  tbody.innerHTML = pageData.map((p) => {
+    const idx = papers.indexOf(p);
+    const srcBadge = p.src && p.src !== "正文" ? `<span class="tag" style="background:rgba(201,165,92,0.1);color:var(--accent);font-size:0.65rem;">${p.src}</span>` : '';
+    return `<tr data-idx="${idx}" style="cursor:pointer">
+      <td>${p.author} ${srcBadge}</td>
       <td>${p.year}</td>
       <td>${p.topic}</td>
       <td style="max-width:160px">${p.context}</td>
       <td style="max-width:280px">${p.finding}</td>
       <td>${p.cats.map(c=>`<span class="tag ${catClass[c]}">${catLabels[c]}</span>`).join("")}</td>
-    </tr>
-  `).join("");
+    </tr>`;
+  }).join("");
 
   tbody.querySelectorAll("tr").forEach(tr => {
     tr.addEventListener("click", () => showDetail(parseInt(tr.dataset.idx)));
+  });
+
+  renderPagination(totalPages);
+}
+
+function renderPagination(totalPages) {
+  const pg = document.getElementById("pagination");
+  if (totalPages <= 1) { pg.innerHTML = ''; return; }
+  let html = '';
+  html += `<button class="pg-btn" ${currentPage===1?'disabled':''} data-pg="${currentPage-1}">‹ 上一页</button>`;
+  const maxShow = 7;
+  let startP = Math.max(1, currentPage - 3);
+  let endP = Math.min(totalPages, startP + maxShow - 1);
+  if (endP - startP < maxShow - 1) startP = Math.max(1, endP - maxShow + 1);
+  if (startP > 1) html += `<button class="pg-btn" data-pg="1">1</button>`;
+  if (startP > 2) html += `<span class="pg-dots">…</span>`;
+  for (let i = startP; i <= endP; i++) {
+    html += `<button class="pg-btn ${i===currentPage?'pg-active':''}" data-pg="${i}">${i}</button>`;
+  }
+  if (endP < totalPages - 1) html += `<span class="pg-dots">…</span>`;
+  if (endP < totalPages) html += `<button class="pg-btn" data-pg="${totalPages}">${totalPages}</button>`;
+  html += `<button class="pg-btn" ${currentPage===totalPages?'disabled':''} data-pg="${currentPage+1}">下一页 ›</button>`;
+  pg.innerHTML = html;
+  pg.querySelectorAll('.pg-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const p = parseInt(btn.dataset.pg);
+      if (p >= 1 && p <= totalPages) { currentPage = p; renderTable(); }
+    });
   });
 }
 
 function showDetail(idx) {
   const p = papers[idx];
   const overlay = document.getElementById("detailOverlay");
+  const srcInfo = p.src ? `<span style="color:var(--text-muted);font-size:0.75rem;margin-left:0.5rem;">[${p.src}]</span>` : '';
   document.getElementById("detailContent").innerHTML = `
     <h3>${p.topic}</h3>
-    <div class="meta">${p.author} (${p.year}) · ${p.journal || ""}</div>
+    <div class="meta">${p.author} (${p.year}) · ${p.journal || ""}${srcInfo}</div>
     <div class="field"><div class="field-label">研究情境</div><div class="field-value">${p.context}</div></div>
     <div class="field"><div class="field-label">研究方法</div><div class="field-value">${p.method || "详见原文"}</div></div>
     <div class="field"><div class="field-label">核心发现</div><div class="field-value">${p.finding}</div></div>
@@ -1143,12 +1284,14 @@ document.getElementById("filterGroup").addEventListener("click", e => {
   document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
   e.target.classList.add("active");
   currentFilter = e.target.dataset.cat;
+  currentPage = 1;
   renderTable();
 });
 
 // Search
 document.getElementById("searchInput").addEventListener("input", e => {
   searchTerm = e.target.value;
+  currentPage = 1;
   renderTable();
 });
 
