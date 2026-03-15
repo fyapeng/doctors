@@ -424,6 +424,39 @@ table.lit-table td:first-child { color: var(--text); font-weight: 500; }
   font-size: 0.85rem; color: var(--text-dim);
 }
 
+/* ─── FIGURE IMAGE ─── */
+.fig-container {
+  margin: 1.5rem 0;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.fig-container img {
+  width: 100%;
+  display: block;
+  padding: 1rem;
+}
+.fig-caption {
+  background: var(--bg-surface);
+  padding: 1rem 1.5rem;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: var(--text-dim);
+  border-top: 1px solid var(--border);
+}
+.fig-caption strong {
+  color: var(--accent-light);
+  font-size: 0.85rem;
+}
+.fig-source {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 900px) {
   .model-grid { grid-template-columns: 1fr; }
@@ -561,6 +594,14 @@ table.lit-table td:first-child { color: var(--text); font-weight: 500; }
         $$TPR_j = \Pr[t_{ij}=I \mid \alpha_i=H, j] = F(\gamma_j(1-\tau_j))$$
         <br>
         $$FPR_j = \Pr[t_{ij}=I \mid \alpha_i=L, j] = F(\gamma_j(-1-\tau_j))$$
+      </div>
+      <div class="fig-container">
+        <img src="fig2.png" alt="Figure 2: 医生诊断决策规则 — ROC 曲线上的激进型与保守型医生">
+        <div class="fig-caption">
+          <strong>Figure 2：医生诊断决策规则</strong><br>
+          蓝色曲线为不同诊断技能水平下的 ROC 前沿。实线切线对应保守型医生 (C)，斜率 > 1；虚线切线对应激进型医生 (A)，斜率 < 1。τ<sub>AH</sub>*、τ<sub>AM</sub>*、τ<sub>AL</sub>* 分别为激进型医生在高/中/低诊断技能下的最优决策点；τ<sub>CH</sub>*、τ<sub>CM</sub>*、τ<sub>CL</sub>* 对应保守型医生。左上角为完美诊断（γ = ∞），45° 虚线为无信息（γ = 0）。
+          <span class="fig-source">来源：Currie, MacLeod & Musen (2026), Figure 2</span>
+        </div>
       </div>
       <p>TPR 为真阳性率（高风险患者正确获得密集治疗的概率），FPR 为假阳性率（低风险患者错误获得密集治疗的概率）。ROC 曲线上不同点对应不同决策阈值，曲线位置高低反映诊断技能。</p>
       <div class="insight">
