@@ -23,7 +23,7 @@ This project builds an interactive webpage based on the review article by Currie
 | **理论模型** | Core Model | 展示论文的数学模型框架：医生效用、诊断信号、决策阈值、ROC 曲线等 |
 | **分析框架** | Analytical Framework | 影响因素总览（技能/激励/时间/同行/公平/偏差）、改善途径、经验识别策略 |
 | **文献数据库** | Literature Database | ~155 篇代表性文献，支持搜索、分类筛选、排序与详情查看 |
-| **研究脉络** | Research Timeline | 2007–2026 年间该领域关键里程碑的时间线 |
+| **研究脉络** | Research Timeline | 2000–2026 年间该领域关键里程碑的时间线 |
 
 ---
 
